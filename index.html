@@ -1,8 +1,40 @@
 <html>
 <head>
+  <title>FlyByProggy &bull; Homepage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css.common.css"/>
 </head>
 <body>
-  (~.~)/\(^_^)
-</body >
+  <div class="body-container">
+    <h1 id=""site-title">FlyByProggy</h1>
+    <p><big>An aviator's personal website about avition stuff...</big></p>
+
+    <br/><br/>
+
+    <h2 class="section-title">Utilities</h2>
+    <p><a href="util/vfr-navlog">VFR Navlog</a></p>
+  
+    <br/>
+
+    <h2>Help</h2>
+    <p><a href="help/cookie-policy">Cookie Policy</a></p>
+    <p><a href="#">Content Policy</a></p>
+
+    <br/>
+
+    <h2>Connect</h2>
+    <p><a href="mailto:flybyproggy@aircraftmail.com">Email</a></p>
+    <p><a href="https://instagram.com/flybyproggy">Instagram</a></p>
+    <p><a href="#">Youtube</a></p>
+
+    <br/><br/>
+
+    <hr/>
+    <p>&copy; <span id="cryr"></span></p>
+  
+  </div>
+  </body>
+    <script>
+      document.getElementById('cryr').innerHTML = new Date().getYear() + 1900;
+    </script>
 </html>
