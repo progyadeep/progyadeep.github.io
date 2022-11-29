@@ -1,0 +1,223 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>            
+            table, th, tr, td{
+                border-collapse: collapse;
+            }
+            
+            th, td{
+                width:70px;
+                border:solid 1px #000;
+                margin:0 0 0 0!important;
+                padding:0 0 0 0!important;
+            }
+            
+            td{
+                background-color:#ededed;
+            }
+            
+            th > span{
+                display:inline-block;
+                padding:8 8 8 8;
+            }
+            
+            td > span{
+                display:inline-block;
+                padding:1 1 1 1;
+            }
+            
+            td button{
+                cursor:pointer;
+                background-color: #e00;
+                color:#fff;
+                transition:0.1s;
+                border-radius:5px;
+                border:none;
+                padding:7 9 7 9;
+            }
+            
+            td button:hover{
+                background-color:#c00;
+                transition:0.2s;
+            }
+            
+            .nobo{
+                border:none;
+                background-color:#fff;
+                padding:0 7 0 7!important;
+            }
+            
+            hr{
+                border:solid 1px #000;
+                margin:0 0 0 0!important;
+            }
+            
+            textarea{
+                padding:0 0 0 0!important;
+                margin:0 0 0 0!important;
+                width:100%;
+                height:100%;
+                text-align: center;
+                border:none;
+                resize: none;
+            }
+            
+            button.calc-butt{
+                background-color:#4d4;
+                color:#fff;
+                padding:5 6 5 6;
+                border-radius:5px;
+                border:none;
+                cursor:pointer;
+                transition:0.1s;
+            }
+            
+            button.calc-butt:hover{
+                background-color:#4a4;
+                transition:0.2s;
+            }
+            
+            button.add-butt{
+                cursor:pointer;
+                background-color:#56c;
+                color:#fff;
+                padding:5 7 5 7;
+                border-radius:5px;
+                border:none;
+                transition: 0.1s;
+            }
+            
+            button.add-butt:hover{
+                background-color:#44a;
+                transition:0.2s;
+            }
+            
+            p input{
+                width:60px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="body-main">
+           <p><strong>NAVIGATION LOG</strong></p>
+            
+            <p>Fuel G.P.H. <input type="number" id="gph"/></p>
+            <p>T.A.S <input type="number"/></p>
+               
+            <table class="navlog" id="navlog">
+                <tr>
+                    <th><span>From<br/>To</span></th>
+                    <th><span>Alt</span><hr/><span>Temp</span></th>
+                    <th><span>TAS</span><hr/><span>IAS</span></th>
+                    <th><span>MAG Track</span></th>
+                    <th><span>W/V MAG</span></th>
+                    <th><span>HDG MAG</span></th>
+                    <th><span>G/S</span><hr/><span>Rev G/S</span></th>
+                    <th><span>Distance</span></th>
+                    <th><span>Fuel Req</span></th>
+                    <th><span>E.T.E.</span></th>
+                    <th><span>E.T.A.</span><hr/><span>Rev ETA</span></th>
+                </tr>
+                
+                <tr>
+                    <td><span><textarea></textarea></span></td>
+                    <td><span><textarea class="alt"></textarea></span><hr/><span><textarea class="temp"></textarea></span></td>
+                    <td><span><textarea class="tas"></textarea></span><hr/><span><textarea class="ias"></textarea></span></td>
+                    <td><span><textarea class="true-trk"></textarea></span></td>
+                    <td><span><textarea class="wv"></textarea></span></td>
+                    <td><span><textarea class="hdg-tru"></textarea></span></td>
+                    <td><span><textarea class="gs"></textarea></span><hr/><br/><br/></td>
+                    <td><span><textarea class="dist"></textarea></span></td>
+                    <td><span><textarea class="fuel"></textarea></span></td>
+                    <td><span><textarea class="ete"></textarea></span></td>
+                    <td><span></span><hr/><span></span></td>
+                    <td class="nobo"><span><button onclick="javascript:delLeg(this)">Delete Leg</button></span></td>
+                </tr>
+            </table>
+            
+            <br/><br/>
+            <button onclick="javascript:addLeg()" class="add-butt">Add leg</button><br/><br/>
+            
+            <button onclick="javascript:calc()" class="calc-butt">Calculate</button>
+        </div>
+    </body>
+    <script>
+        function addLeg(){
+            var tr = document.createElement('tr');
+            tr.innerHTML= "<td><span><textarea></textarea></span></td>"
+                            +"<td><span><textarea class=\"alt\"></textarea></span><hr/><span><textarea class=\"temp\"></textarea></span></td>"
+                            +"<td><span><textarea class=\"tas\"></textarea></span><hr/><span><textarea class=\"ias\"></textarea></span></td>"
+                            +"<td><span><textarea class=\"true-trk\"></textarea></span></td>"
+                            +"<td><span><textarea class=\"wv\"></textarea></span></td>"
+                            +"<td><span><textarea class=\"hdg-tru\"></textarea></span></td>"
+                            +"<td><span><textarea class=\"gs\"></textarea></span><hr/><br/><br/></td>"
+                            +"<td><span><textarea class=\"dist\"></textarea></span></td>"
+                            +"<td><span><textarea class=\"fuel\"></textarea></span></td>"
+                            +"<td><span><textarea class=\"ete\"></textarea></span></td>"
+                            +"<td><span></span><hr/><span></span></td>"
+                            +"<td class=\"nobo\"><span><button onclick=\"javascript:delLeg(this)\">Delete Leg</button></span></td>";
+            document.getElementById('navlog').appendChild(tr);
+        }
+        
+        function delLeg(x){
+            var target = x.parentNode.parentNode.parentNode;
+            target.parentNode.removeChild(target);
+        }
+        
+        function calc(){            
+            //fetching the fields
+            var alts = document.getElementsByClassName('alt');
+            var tass = document.getElementsByClassName('tas');
+            var tracks = document.getElementsByClassName('true-trk');
+            var winds = document.getElementsByClassName('wv');
+            var headings = document.getElementsByClassName('hdg-tru');
+            var ground_speeds = document.getElementsByClassName('gs');
+            var distances = document.getElementsByClassName('dist');
+            var fuel_reqs = document.getElementsByClassName('fuel');
+            var etes = document.getElementsByClassName('ete');
+            
+            //filler variables
+            var alt_this = alts[0].value;
+            var tas_this = tass[0].value;
+            var wv_this = winds[0].value;
+            
+            //loop
+            for(var x=0; x<alts.length; x++){
+                alts[x].value!=""?alt_this=alts[x].value:alts[x].value=alt_this;
+                tass[x].value!=""?tas_this=tass[x].value:tass[x].value=tas_this;
+                winds[x].value!= ""?wv_this=winds[x].value:winds[x].value=wv_this;
+                
+                //calculating wind correction angle and (mag) heading
+                var wv_c = winds[x].value.split("@");
+                var trk = parseInt(tracks[x].value);
+                trk = trk==0?360:trk;
+                var d = parseInt(wv_c[0])-trk;
+                d = d>180?d-360:d;
+                
+                var wca = Math.asin(parseFloat(wv_c[1])/parseFloat(tas_this)*Math.sin(d*Math.PI/180.0))*180.0/Math.PI;
+                //rounding off
+                wca = 1.0*Math.round(wca);
+                hdg = trk + wca;
+                hdg = hdg>360?hdg-360:(hdg<0?360+hdg:hdg);
+                
+                //formatting with 0s
+                headings[x].value = hdg<10?"00"+hdg:(hdg<100?"0"+hdg:hdg);                
+                
+                //calculating ground speed
+                var tas_c = Math.cos(Math.abs(wca)*Math.PI/180.0)*parseInt(tas_this); //trk component of AS
+                var hwd_c = Math.cos(d*Math.PI/180.0)*parseInt(wv_c[1]); //headwind component
+                var gs = Math.round(tas_c - hwd_c); //groundspeed
+                ground_speeds[x].value = gs;
+                
+                
+                //calculating fuel and ETE
+                var ete = parseInt(distances[x].value)/gs;
+                var fuel = ete*parseFloat(document.getElementById('gph').value);
+                
+                fuel_reqs[x].value = fuel.toFixed(1);
+                etes[x].value = Math.round(ete*60);
+            }
+        }
+    </script>
+</html>
