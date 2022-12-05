@@ -88,7 +88,7 @@
                 background-color: #fff!important;
             }
 
-            div.del-button{
+            div.side-button{
                 display:inline-block;
                 width:50px;
                 background: #56c;
@@ -97,7 +97,7 @@
                 text-align: center;
             }
 
-            div.del-button span{
+            div.side-button span{
                 cursor: pointer;
             }
 
@@ -141,7 +141,9 @@
                         <div class="navlog-cell"><span>Fuel Req</span></div>
                         <div class="navlog-cell"><span>E.T.E</span></div>
                 </div>
-                <div class="del-button"></div>
+                <div class="side-button" style="background-color:orange!important; border-top:solid 2px #56c; border-bottom:solid 1px #56c">
+                    <span onclick="javascript:calc()">&#65309;</span>
+                </div>
             </div>
 
             <div class="navlog-row-container">
@@ -163,7 +165,7 @@
                     <div class="navlog-cell"><span><input class="fuel" type="text"/></span></div>
                     <div class="navlog-cell"><span><input class="ete" type="number"/></span></div>
                 </div>
-                <div class="del-button"><span onclick="javascript:delLeg(this)">X</span></div>
+                <div class="side-button"><span onclick="javascript:delLeg(this)">X</span></div>
             </div>
         </div>
 
@@ -175,7 +177,7 @@
                     <div><input /></div>
                 </div>
             </div>
-            <div class="del-button" style="background-color:#4d4!important; width:51px;"><span onclick="javascript:addLeg()">&#x271B;</span></div>
+            <div class="side-button" style="background-color:#4d4!important; width:51px;"><span onclick="javascript:addLeg()">&#x271B;</span></div>
         </div>
         
     </body>
@@ -206,7 +208,7 @@
                             +"<div class=\"navlog-cell\"><span><input class=\"fuel\" type=\"text\"/></span></div>"
                             +"<div class=\"navlog-cell\"><span><input class=\"ete\" type=\"number\"/></span></div>"
                             +"</div>"
-                            +"<div class=\"del-button\"><span onclick=\"javascript:delLeg(this)\">X</span></div>"
+                            +"<div class=\"side-button\"><span onclick=\"javascript:delLeg(this)\">X</span></div>"
                             +"</div>";
             document.getElementById('body-main').appendChild(tr);
         }
