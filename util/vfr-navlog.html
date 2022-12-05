@@ -145,7 +145,7 @@
             </div>
 
             <div class="navlog-row-container">
-                <div class="navlog-row" style="font-weight:bold;">
+                <div class="navlog-row">
                     <div class="navlog-cell"><span><textarea></textarea></span></div>
                     <div class="navlog-cell-compound">
                         <div><input class="alt" type="number"/></div>
@@ -167,16 +167,17 @@
             </div>
         </div>
 
-        <br?/><br/><br/>
-
-        <div style="text-align: center;">
-            <button style="background-color:#56c" onclick="javascript:addLeg()">&#x271B;</button>
-            <br/><br/><br/>
-            <button style="background-color:rgb(78, 230, 78)" onclick="javascript:saveNavlog()">Save</button>
-            <button style="background-color: orange" onclick="javascript:loadNavlog()">Open</button>
-            <button style="background-color: rgb(233, 124, 200)" onclick="javascript:downloadNavlog()">Save CSV</button>
-            <button style="background-color:rgb(35, 177, 202)" onclick="javascript:uploadNavlog()">Open CSV</button>
+        <!----------------------Dummy row to support "+" button------------------------------>
+        <div class="navlog-row-container">
+            <div class="navlog-row" style="visibility:hidden; width:calc(100% - 51px)!important;">
+                <div class="navlog-cell-compound">
+                    <div><input/></div>
+                    <div><input /></div>
+                </div>
+            </div>
+            <div class="del-button" style="background-color:#4d4!important; width:51px;"><span onclick="javascript:addLeg()">&#x271B;</span></div>
         </div>
+        
     </body>
     <script>
         document.getElementById('body-main').style.paddingTop = document.getElementById('top-bar').offsetHeight;
