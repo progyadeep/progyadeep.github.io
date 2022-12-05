@@ -138,7 +138,9 @@
                         <div class="navlog-cell"><span>HDG Mag</span></div>
                         <div class="navlog-cell"><span>GS</span></div>
                         <div class="navlog-cell"><span>DIST</span></div>
-                        <div class="navlog-cell"><span>Fuel Req</span></div>
+                        <div class="navlog-cell">
+                            <span>Fuel Req<br/><input style="margin-top:5px" id="gph" type="number" placeholder="G.P.H"/></span>
+                        </div>
                         <div class="navlog-cell"><span>E.T.E</span></div>
                 </div>
                 <div class="side-button" style="background-color:orange!important; border-top:solid 2px #56c; border-bottom:solid 1px #56c">
@@ -265,11 +267,13 @@
                 
                 
                 //calculating fuel and ETE
-                //var ete = parseInt(distances[x].value)/gs;
-                //var fuel = ete*parseFloat(document.getElementById('gph').value);
-                
-                //fuel_reqs[x].value = fuel.toFixed(1);
-                //etes[x].value = Math.round(ete*60);
+                var ete = parseFloat(distances[x].value)/gs;
+                var fuel = 0;
+
+                if(fuel = ete*parseFloat(document.getElementById('gph').value)){
+                    fuel_reqs[x].value = fuel.toFixed(1);
+                }
+                    etes[x].value = (ete*60).toFixed(1);
             }
         }
     </script>
