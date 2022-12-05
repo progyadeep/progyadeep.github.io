@@ -15,42 +15,21 @@
                 resize: none;
             }
             
-            button.calc-butt{
-                background-color:#4d4;
-                color:#fff;
-                padding:5 6 5 6;
-                border-radius:5px;
-                border:none;
+            button{
                 cursor:pointer;
-                transition:0.1s;
-            }
-            
-            button.calc-butt:hover{
-                background-color:#4a4;
-                transition:0.2s;
-            }
-            
-            button.add-butt{
-                cursor:pointer;
-                background-color:#56c;
                 color:#fff;
-                padding:0 20 0 20;
-                font-size: 26;
+                padding:2 20 2 20;
+                font-size: 16;
                 border-radius:5px;
                 border:none;
                 transition: 0.1s;
             }
-            
-            button.add-butt:hover{
-                background-color:#44a;
-                transition:0.2s;
-            }
-            
-            p input{
-                width:60px;
-            }
 
-            /*=====================================*/
+            button:hover{
+                opacity:0.85;
+                transition: 0.1s;
+            }
+            
             body{
                 margin:0;
                 padding:0;
@@ -190,7 +169,12 @@
         <br?/><br/><br/>
 
         <div style="text-align: center;">
-            <button class="add-butt" onclick="javascript:addLeg()">+</button>
+            <button style="background-color:#56c" onclick="javascript:addLeg()">&#x271B;</button>
+            <br/><br/><br/>
+            <button style="background-color:rgb(78, 230, 78)" onclick="javascript:saveNavlog()">Save</button>
+            <button style="background-color: orange" onclick="javascript:loadNavlog()">Open</button>
+            <button style="background-color: rgb(233, 124, 200)" onclick="javascript:downloadNavlog()">Save CSV</button>
+            <button style="background-color:rgb(35, 177, 202)" onclick="javascript:uploadNavlog()">Open CSV</button>
         </div>
     </body>
     <script>
