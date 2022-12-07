@@ -76,12 +76,8 @@
             div.navlog-cell-compound > div{
                 padding:10 0 10 0;
                 border-bottom:solid 0.5px #000;
-                border-left:solid 0.5px #000;
-                border-right:solid 0.5px #000;
-            }
-
-            div.nav-label-row div.navlog-row{
-                border-top:solid 2px #56c;
+                border-left:solid 0.2px #000;
+                border-right:solid 0.2px #000;
             }
 
             div.nav-label-row div.navlog-cell{
@@ -110,6 +106,13 @@
 
             input{
                 width:80%;
+                text-align: center;
+            }
+
+            div.bottom-bar{
+                width:100%;
+                background-color:#56c;
+                color:#fff;
                 text-align: center;
             }
         </style>
@@ -181,10 +184,16 @@
             </div>
             <div class="side-button" style="background-color:#4d4!important; width:51px;"><span onclick="javascript:addLeg()">&#x271B;</span></div>
         </div>
+
+        <div class="bottom-bar">
+            <br/>
+                Total:-&nbsp; <span id="tot_dist"><b>0</b></span> NM, <span id="tot_fuel"><b>0.0</b></span> Gal, <span id="tot_ete"><b>0.0</b></span> mins
+            <br/><br/>
+        </div>
         
     </body>
     <script>
-        document.getElementById('body-main').style.paddingTop = document.getElementById('top-bar').offsetHeight - 2;
+        document.getElementById('body-main').style.paddingTop = document.getElementById('top-bar').offsetHeight;
         document.getElementById('top-bar-hp-link').onclick= function(){
             window.location.href = '/';
         }
@@ -220,7 +229,9 @@
             target.parentNode.removeChild(target);
         }
         
-        function calc(){            
+        function calc(){
+            var tot_dist=0.0, tot_fuel=0.0, tot_ete=0.0;
+
             //fetching the fields
             var alts = document.getElementsByClassName('alt');
             var tass = document.getElementsByClassName('tas');
@@ -265,16 +276,25 @@
                 var gs = Math.round(tas_c - hwd_c); //groundspeed
                 ground_speeds[x].value = gs;
                 
-                
+                var d_t = parseFloat(distances[x].value);
+                tot_dist+= d_t;
+
                 //calculating fuel and ETE
-                var ete = parseFloat(distances[x].value)/gs;
+                var ete = d_t/gs;
                 var fuel = 0;
 
                 if(fuel = ete*parseFloat(document.getElementById('gph').value)){
                     fuel_reqs[x].value = fuel.toFixed(1);
+                    tot_fuel+= parseFloat(fuel.toFixed(1));
                 }
-                    etes[x].value = (ete*60).toFixed(1);
+                etes[x].value = (ete*60).toFixed(1);
+
+                tot_ete+= parseFloat((ete*60).toFixed(1));
             }
+
+            document.getElementById('tot_dist').innerHTML = "<b>"+tot_dist+"</b>";
+            document.getElementById('tot_fuel').innerHTML = "<b>"+tot_fuel+"</b>";
+            document.getElementById('tot_ete').innerHTML = "<b>"+tot_ete+"</b>";
         }
     </script>
 </html>
