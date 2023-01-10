@@ -331,7 +331,7 @@
                 this_navlog+= legNames[x].value.replaceAll('\n','#')+":"+alts[x].value+":"+tracks[x].value+":"+distances[x].value+"?";
             }
 
-            document.cookie = "VFRNL-"+this_navlog_title+"="+this_navlog+"; SameSite=Strict";
+            document.cookie = "VFRNL-"+this_navlog_title+"="+this_navlog+"; SameSite=Strict; expires=Mon, 18 Jan 2038 00:00:00 UTC;";
 
             alert("Navlog \'"+this_navlog_title+"\' saved successfully on this browser!");
         }
