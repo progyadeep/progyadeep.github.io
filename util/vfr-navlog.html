@@ -180,7 +180,7 @@
                     <div class="navlog-cell"><span><input class="gs" type="number"/></span></div>
                     <div class="navlog-cell"><span><input class="dist" type="text"/></span></div>
                     <div class="navlog-cell"><span><input class="fuel" type="text"/></span></div>
-                    <div class="navlog-cell"><span><input class="ete" type="number"/></span></div>
+                    <div class="navlog-cell"><span><input class="ete" type="text"/></span></div>
                 </div>
                 <div class="side-button"><span onclick="javascript:delLeg(this)">X</span></div>
             </div>
@@ -195,7 +195,8 @@
             <div class="buttons-panel">
                 <button class="panel-button" style="background-color:#4d4;" onclick="javascript:addLeg()">Add leg</button>
                 <button class="panel-button" style="background-color:orange" onclick="javascript:calc()">Calc</button>
-                <button class="panel-button" style="background-color:rgb(211, 214, 23)" onclick="javascript:saveNavlog()">Save</button>
+                <button class="panel-button" style="background-color: #eb4444" onclick="javascript:recalc()">Re-add Fuel+ETE</button>
+                <button class="panel-button" style="background-color:rgb(204, 207, 0)" onclick="javascript:saveNavlog()">Save</button>
                 <button style="background-color:rgb(230, 73, 230)" onclick="javascript:manageNavlogs()">Manage Navlogs</button>
                 <button class="panel-button" style="background-color:rgb(60, 167, 255)">Download</button>
                 <button class="panel-button" style="background-color:#ccbaba">Upload</button>
@@ -207,6 +208,10 @@
     <script>
         //-----------GLOBAL JAVASCRIPT VARIABLES-----------------
         var this_navlog_title = "";
+
+        var tot_dist = 0.0;
+        var tot_ete= 0.0;
+        var tot_fuel= 0.0
 
         //fetching the fields
         var legNames = document.getElementsByClassName('legName');
@@ -244,7 +249,7 @@
                             +"<div class=\"navlog-cell\"><span><input class=\"gs\" type=\"number\"/></span></div>"
                             +"<div class=\"navlog-cell\"><span><input class=\"dist\" type=\"text\"/></span></div>"
                             +"<div class=\"navlog-cell\"><span><input class=\"fuel\" type=\"text\"/></span></div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"ete\" type=\"number\"/></span></div>"
+                            +"<div class=\"navlog-cell\"><span><input class=\"ete\" type=\"text\"/></span></div>"
                             +"</div>"
                             +"<div class=\"side-button\"><span onclick=\"javascript:delLeg(this)\">X</span></div>";
             document.getElementById('body-main').appendChild(div);
@@ -256,8 +261,10 @@
         }
         
         function calc(){
-            var tot_dist=0.0, tot_fuel=0.0, tot_ete=0.0;
-            
+            tot_dist=0.0;
+            tot_fuel=0.0;
+            tot_ete=0.0;
+
             //filler variables
             var alt_this = alts[0].value;
             var tas_this = tass[0].value;
@@ -283,7 +290,7 @@
                 hdg = hdg>360?hdg-360:(hdg<0?360+hdg:hdg);
                 
                 //formatting with 0s
-                headings[x].value = hdg<10?"00"+hdg:(hdg<100?"0"+hdg:hdg);                
+                headings[x].value = hdg<10?"00"+hdg:(hdg<100?"0"+hdg:hdg);
                 
                 //calculating ground speed
                 var tas_c = Math.cos(Math.abs(wca)*Math.PI/180.0)*parseInt(tas_this); //trk component of AS
@@ -310,6 +317,36 @@
             document.getElementById('tot_dist').innerHTML = "<b>"+tot_dist+"</b>";
             document.getElementById('tot_fuel').innerHTML = "<b>"+tot_fuel+"</b>";
             document.getElementById('tot_ete').innerHTML = "<b>"+tot_ete.toFixed(1)+"</b>";
+        }
+
+        function recalc(){
+            tot_fuel=0.0;
+            tot_ete=0.0;
+
+            for(var x=0; x<fuel_reqs.length; x++){
+                if(fuel_reqs[x].value.includes("+")){
+                    var t_f_s_a = fuel_reqs[x].value.split("+");
+                    for(var y=0; y<t_f_s_a.length; y++){
+                        tot_fuel+= parseFloat(t_f_s_a[y]);
+                    }
+                }
+                else{
+                    tot_fuel+= parseFloat(fuel_reqs[x].value);
+                }
+
+                if(etes[x].value.includes("+")){
+                    var e_f_s_a = etes[x].value.split("+");
+                    for(var y=0; y<e_f_s_a.length; y++){
+                        tot_ete+= parseFloat(e_f_s_a[y]);
+                    }
+                }
+                else{
+                    tot_ete += parseFloat(etes[x].value);
+                }
+            }
+
+            document.getElementById('tot_fuel').innerHTML = "<b>" + tot_fuel.toFixed(1) + "</b>";
+            document.getElementById('tot_ete').innerHTML = "<b>" + tot_ete.toFixed(1) + "</b>";
         }
 
         function saveNavlog(){
