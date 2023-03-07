@@ -2,25 +2,14 @@
     <head>
         <title>VFR Navlog &bull; FlyByProggy</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="../css.common.css"/>
-        <link rel="stylesheet" href="../vfr-navlog-manager-dialog.css"/>
+        <link rel="stylesheet" href="../res/css.common.css"/>
+        <link rel="stylesheet" href="../res/vfr-navlog-manager-dialog.css"/>
         <style>
-            
-            textarea{
-                padding:0 0 0 0!important;
-                margin:0 0 0 0!important;
-                width:100%;
-                height:calc(100% - 10px);
-                text-align: center;
-                border:none;
-                resize: none;
-            }
-            
             button{
                 cursor:pointer;
                 color:#fff;
-                padding:2 20 2 20;
-                font-size: 16;
+                display:inline;
+                margin:2 2 2 2;
                 border-radius:5px;
                 border:none;
                 transition: 0.1s;
@@ -36,93 +25,75 @@
                 padding:0;
             }
 
-            div#top-bar{
-                background-color:#56c;
-                width:100%;
-                color:#fff!important;
-                text-align:center;
-            }
-
             div.body-main{
-                display:block;
-            }
-
-            div.navlog-row-container{
-                display:flex;
-                width:100%;
-            }
-
-            div.navlog-row{
-                display:flex;
-                width:calc(100% - 50px);
-            }
-
-            div.navlog-cell{
                 display:inline-block;
-                width:10%;
-                background-color:#eaebed;
-                text-align: center;
-                border-bottom:solid 0.5px #000;
-                border-left:solid 0.5px #000;
-                border-right:solid 0.5px #000;
             }
 
-            div.navlog-cell-compound{
-                width:10%;
-                text-align:center;
+            h3, h5{
+                margin:0 0 0 0;
             }
 
-            div.navlog-cell-compound > div{
-                padding:10 0 10 0;
-                border-bottom:solid 0.5px #000;
-                border-left:solid 0.2px #000;
-                border-right:solid 0.2px #000;
-            }
-
-            div.nav-label-row div.navlog-cell{
-                background-color: #fff!important;
-            }
-
-            div.side-button{
-                display:inline-block;
-                width:50px;
-                color: red;
-                font-weight:bold;
-                text-align: center;
-                font-size:large;
-            }
-
-            div.side-button span{
-                cursor: pointer;
-            }
-
-            div.navlog-row-container span{
-                display:inline-block;
+            .navlog-container-main{
                 position:relative;
-                top: 50%;
+                left:50vw;
+                transform: translate(-50%, 0);
+            }
+
+            .navlog-row{
+                display:flex;
+                margin-bottom:2px;
+            }
+
+            .navlog-row button{
+                position: relative;
+                top:50%;
                 transform: translate(0, -50%);
+                margin-left:5;
+            }
+            
+            textarea{
+                width:110px;
+                resize: none;
+                text-align:center;
+                font-size:18px;
             }
 
             input{
-                width:80%;
-                text-align: center;
+                text-align:center;
+                font-size:20px;
             }
 
+            /*-----------------------------new--------------------------*/
+
             div.bottom-bar{
-                width:100%;
-                background-color:#56c;
-                color:#fff;
-                text-align: center;
+                width:20%;
+                display:flex;
+                justify-content: space-around;
+                position: relative;
+                left:50vw;
+                transform: translate(-50%,0);
+            }
+
+            div.bottom-bar > img{
+                width:20px;
+                height:20px;
+                cursor:pointer;
+                transition:0.2s;
+            }
+
+            div.bottom-bar > img:hover{
+                opacity: 0.5;
             }
         </style>
     </head>
+
     <body>
         <div id="nav-manager-overlay" class="nav-manager-overlay">
             <br/><br/><br/>
             <div class="nav-manager-dialog">
                 <div style="display:flex; justify-content: space-between">
                     <h3>Manage Navlogs</h3>
-                    <h3><a href="#" style="color:red!important" onclick="javascript:closeNavManager()">X</a></h3>
+                    <h3><a href="#" style="color:red" onclick="javascript:closeNavManager()">X</a></h3>
                 </div>
                 <table id="navlog-list" style="width:100%">
                     <tr><td><span style="color:#a1a1a1;"><i>No navlogs saved on this browser.</i></span></td></tr>
@@ -132,80 +103,74 @@
             <br/><br/><br/> 
         </div>
 
-        <div id="top-bar">
-            <div><br/><b><big>VFR NAVLOG</big></b><br/>
-                <span id="top-bar-hp-link" style="cursor:pointer">&gt;&gt; https://flybyproggy.sly.io &lt;&lt;</span>
-            </div>
-            <br/>
-        </div>
+        <br/>
+        <h3 align="center">VFR Navlog</h3>
+        <h5 align="center">@FlyByProggy</h5><br/>
+
         <div id="body-main" class="body-main">
 
-            <div class="navlog-row-container nav-label-row">
-                <div class="navlog-row" style="font-weight:bold; border-top:solid 1.5px #56c;">
-                    <div class="navlog-cell"><span>From<br/>To</span></div>
-                    <div class="navlog-cell-compound">
-                        <div>ALT</div>
-                        <div>Temp</div>
-                    </div>
-                    <div class="navlog-cell-compound">
-                        <div>TAS</div>
-                        <div>CAS</div>
-                    </div>
-                    <div class="navlog-cell"><span>TRK Mag</span></div>
-                    <div class="navlog-cell"><span>W/V Mag</span></div>
-                    <div class="navlog-cell"><span>HDG Mag</span></div>
-                    <div class="navlog-cell"><span>GS</span></div>
-                    <div class="navlog-cell"><span>DIST</span></div>
-                    <div class="navlog-cell">
-                        <span>Fuel Req<br/><input style="margin-top:5px" id="gph" type="number" placeholder="G.P.H"/></span>
-                    </div>
-                    <div class="navlog-cell"><span>E.T.E</span></div>
-                </div>
-            </div>
-
-            <div class="navlog-row-container">
+            <div class="navlog-container-main" id="nlc">
                 <div class="navlog-row">
-                    <div class="navlog-cell"><span><textarea class="legName"></textarea></span></div>
-                    <div class="navlog-cell-compound">
-                        <div><input class="alt" type="number"/></div>
-                        <div><input class="temp" type="number"/></div>
+                    <textarea disabled>From/&#13;To</textarea>
+                    <div class="double-cell">
+                        <input size="4" value="Alt" disabled/><br/>
+                        <input size="4" value="Temp" disabled/>
                     </div>
-                    <div class="navlog-cell-compound">
-                        <div><input class="tas" type="number"/></div>
-                        <div><input class="cas" type="number"/></div>
+                    <div class="double-cell">
+                        <input size="4" value="TAS" disabled/><br/>
+                        <input size="4" value="CAS" disabled/>
                     </div>
-                    <div class="navlog-cell"><span><input class="tru-trk" type="number"/></span></div>
-                    <div class="navlog-cell"><span><input class="wv" type="text"/></span></div>
-                    <div class="navlog-cell"><span><input class="hdg-tru" type="number"/></span></div>
-                    <div class="navlog-cell"><span><input class="gs" type="number"/></span></div>
-                    <div class="navlog-cell"><span><input class="dist" type="text"/></span></div>
-                    <div class="navlog-cell"><span><input class="fuel" type="text"/></span></div>
-                    <div class="navlog-cell"><span><input class="ete" type="text"/></span></div>
+                    <input size="4" value="Trk" disabled/>
+                    <input size="4" value="W/V" disabled/>
+                    <input size="4" value="Hdg" disabled/>
+                    <input size="4" value="GS" disabled/>
+                    <input size="4" value="Dist" disabled/>
+                    <div class="double-cell">
+                        <input size="4" value="Fuel" disabled/><br/>
+                        <input size="4" placeholder="g.p.h." id="gph"/>
+                    </div>
+                    <input size="4" value="ETE" disabled/>
                 </div>
-                <div class="side-button"><span onclick="javascript:delLeg(this)">X</span></div>
-            </div>
+    
+                <div class="navlog-row">
+                    <textarea class="legName"></textarea>
+                    <div class="double-cell">
+                        <input type="text" size="4" class="alt"/><br/>
+                        <input type="text" size="4" class="temp"/>
+                    </div>
+                    <div class="double-cell">
+                        <input type="text" size="4" class="tas"/><br/>
+                        <input type="text" size="4" class="cas"/>
+                    </div>
+                    <input type="text" size="4" class="trk"/>
+                    <input type="text" size="4" class="wv"/>
+                    <input type="text" size="4" class="hdg"/>
+                    <input type="text" size="4" class="gs"/>
+                    <input type="text" size="4" class="dist"/>
+                    <input type="text" size="4" class="fuel"/>
+                    <input type="text" size="4" class="ete"/>
+                    <div><button style="background-color:#f00;" onclick="javascript:delLeg(this)">X</button></div>
+                </div>
+            </div><br/>
+            <button style="background-color:#4d4; position:relative; left:50vw; transform:translate(-50%,0)" onclick="javascript:addLeg()"><big>+</big></button>
+            <button style="background-color:orange; position:relative; left:50vw; transform:translate(-50%,0)" onclick="javascript:calc()"><big>=</big></button>
+            <button style="background-color:rgb(68, 155, 255); position:relative; left:50vw; transform:translate(-50%,0)" onclick="javascript:recalc()"><big>~</big></button>
         </div>
 
-        <br/>
+        <br/><br/>
+        <p align="center">Total:-&nbsp; <span id="tot_dist"><b>0</b></span> NM, <span id="tot_fuel"><b>0.0</b></span> Gal, <span id="tot_ete"><b>0.0</b></span> mins</p>
+        <br/><br/>
 
         <div class="bottom-bar">
-            <br/>
-                Total:-&nbsp; <span id="tot_dist"><b>0</b></span> NM, <span id="tot_fuel"><b>0.0</b></span> Gal, <span id="tot_ete"><b>0.0</b></span> mins
-            <br/><br/>
-            <div class="buttons-panel">
-                <button class="panel-button" style="background-color:#4d4;" onclick="javascript:addLeg()">Add leg</button>
-                <button class="panel-button" style="background-color:orange" onclick="javascript:calc()">Calc</button>
-                <button class="panel-button" style="background-color: #eb4444" onclick="javascript:recalc()">Re-add Fuel+ETE</button>
-                <button class="panel-button" style="background-color:rgb(204, 207, 0)" onclick="javascript:saveNavlog()">Save</button>
-                <button style="background-color:rgb(230, 73, 230)" onclick="javascript:manageNavlogs()">Manage Navlogs</button>
-                <button class="panel-button" style="background-color:rgb(60, 167, 255)">Download</button>
-                <button class="panel-button" style="background-color:#ccbaba">Upload</button>
-            </div>
-            <br/>
+            <img src="../res/save.svg" onclick="javascript:saveNavlog()"/>
+            <img src="../res/menu.svg" onclick="javascript:manageNavlogs()"/>
+            <img src="../res/download.svg" />
+            <img src="../res/upload.svg" />
         </div>
         
     </body>
-    <script>
+
+    <script tye="text/javascript">
         //-----------GLOBAL JAVASCRIPT VARIABLES-----------------
         var this_navlog_title = "";
 
@@ -217,9 +182,9 @@
         var legNames = document.getElementsByClassName('legName');
         var alts = document.getElementsByClassName('alt');
         var tass = document.getElementsByClassName('tas');
-        var tracks = document.getElementsByClassName('tru-trk');
+        var tracks = document.getElementsByClassName('trk');
         var winds = document.getElementsByClassName('wv');
-        var headings = document.getElementsByClassName('hdg-tru');
+        var headings = document.getElementsByClassName('hdg');
         var ground_speeds = document.getElementsByClassName('gs');
         var distances = document.getElementsByClassName('dist');
         var fuel_reqs = document.getElementsByClassName('fuel');
@@ -233,26 +198,26 @@
             var div = document.createElement('div');
             div.className = "navlog-row-container";
 
-            div.innerHTML=  "<div class=\"navlog-row\" style=\"font-weight:bold;\">"
-                            +"<div class=\"navlog-cell\"><span><textarea class=\"legName\"></textarea></span></div>"
-                            +"<div class=\"navlog-cell-compound\">"
-                            +"<div><input class=\"alt\" type=\"number\"/></div>"
-                            +"<div><input class=\"temp\" type=\"number\"/></div>"
+            div.innerHTML=  "<div class=\"navlog-row\">"
+                            +"<textarea class=\"legName\"></textarea>"
+                            +"<div class=\"double-cell\">"
+                            +"<input type=\"text\" size=\"4\" class=\"alt\"/><br/>"
+                            +"<input type=\"text\" size=\"4\" class=\"temp\"/>"
                             +"</div>"
-                            +"<div class=\"navlog-cell-compound\">"
-                            +"<div><input class=\"tas\" type=\"number\"/></div>"
-                            +"<div><input class=\"cas\" type=\"number\"/></div>"
+                            +"<div class=\"double-cell\">"
+                            +"<input type=\"text\" size=\"4\" class=\"tas\"/><br/>"
+                            +"<input type=\"text\" size=\"4\" class=\"cas\"/>"
                             +"</div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"tru-trk\" type=\"number\"/></span></div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"wv\" type=\"text\"/></span></div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"hdg-tru\" type=\"number\"/></span></div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"gs\" type=\"number\"/></span></div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"dist\" type=\"text\"/></span></div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"fuel\" type=\"text\"/></span></div>"
-                            +"<div class=\"navlog-cell\"><span><input class=\"ete\" type=\"text\"/></span></div>"
-                            +"</div>"
-                            +"<div class=\"side-button\"><span onclick=\"javascript:delLeg(this)\">X</span></div>";
-            document.getElementById('body-main').appendChild(div);
+                            +"<input type=\"text\" size=\"4\" class=\"trk\"/>"
+                            +"<input type=\"text\" size=\"4\" class=\"wv\"/>"
+                            +"<input type=\"text\" size=\"4\" class=\"hdg\"/>"
+                            +"<input type=\"text\" size=\"4\" class=\"gs\"/>"
+                            +"<input type=\"text\" size=\"4\" class=\"dist\"/>"
+                            +"<input type=\"text\" size=\"4\" class=\"fuel\"/>"
+                            +"<input type=\"text\" size=\"4\" class=\"ete\"/>"
+                            +"<div><button style=\"background-color:#f00;\" onclick=\"javascript:delLeg(this)\">X</button></div>"
+                            +"</div>";
+            document.getElementById('nlc').appendChild(div);
         }
         
         function delLeg(x){
@@ -394,10 +359,27 @@
 
         function loadNavlog(n){
             //resetting current navlog
-            var rowsXX = document.getElementsByClassName('side-button');
-            for(var a=0; a<rowsXX.length; a++){
-                delLeg(rowsXX[a].firstChild);
-            }
+            document.getElementById('nlc').innerHTML = "<div class=\"navlog-row\">"
+                                                        +"<textarea disabled>From/&#13;To</textarea>"
+                                                        +"<div class=\"double-cell\">"
+                                                        +"<input size=\"4\" value=\"Alt\" disabled/><br/>"
+                                                        +"<input size=\"4\" value=\"Temp\" disabled/>"
+                                                        +"</div>"
+                                                        +"<div class=\"double-cell\">"
+                                                        +"<input size=\"4\" value=\"TAS\" disabled/><br/>"
+                                                        +"<input size=\"4\" value=\"CAS\" disabled/>"
+                                                        +"</div>"
+                                                        +"<input size=\"4\" value=\"Trk\" disabled/>"
+                                                        +"<input size=\"4\" value=\"W/V\" disabled/>"
+                                                        +"<input size=\"4\" value=\"Hdg\" disabled/>"
+                                                        +"<input size=\"4\" value=\"GS\" disabled/>"
+                                                        +"<input size=\"4\" value=\"Dist\" disabled/>"
+                                                        +"<div class=\"double-cell\">"
+                                                        +"<input size=\"4\" value=\"Fuel\" disabled/><br/>"
+                                                        +"<input size=\"4\" placeholder=\"g.p.h.\" id=\"gph\"/>"
+                                                        +"</div>"
+                                                        +"<input size=\"4\" value=\"ETE\" disabled/>"
+                                                        +"</div>";
 
             this_navlog_title = n.parentElement.parentElement.firstChild.innerHTML;
             document.cookie.split("; ").forEach(function(arrX){
