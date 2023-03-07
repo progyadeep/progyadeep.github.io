@@ -65,24 +65,27 @@
 
             /*-----------------------------new--------------------------*/
 
-            div.bottom-bar{
-                width:20%;
+            div.bottom-container-bar{
+                width:15%;
                 display:flex;
                 justify-content: space-around;
-                position: relative;
-                left:50vw;
-                transform: translate(-50%,0);
             }
 
-            div.bottom-bar > img{
+            div.bottom-container-bar > img{
                 width:20px;
                 height:20px;
                 cursor:pointer;
                 transition:0.2s;
             }
 
-            div.bottom-bar > img:hover{
+            div.bottom-container-bar > img:hover{
                 opacity: 0.5;
+            }
+
+            .horizontal-center{
+                position: relative;
+                left:50vw;
+                transform: translate(-50%, 0);
             }
         </style>
     </head>
@@ -109,7 +112,7 @@
 
         <div id="body-main" class="body-main">
 
-            <div class="navlog-container-main" id="nlc">
+            <div class="navlog-container-main horizontal-center" id="nlc">
                 <div class="navlog-row">
                     <textarea disabled>From/&#13;To</textarea>
                     <div class="double-cell">
@@ -152,16 +155,19 @@
                     <div><button style="background-color:#f00;" onclick="javascript:delLeg(this)">X</button></div>
                 </div>
             </div><br/>
-            <button style="background-color:#4d4; position:relative; left:50vw; transform:translate(-50%,0)" onclick="javascript:addLeg()"><big>+</big></button>
-            <button style="background-color:orange; position:relative; left:50vw; transform:translate(-50%,0)" onclick="javascript:calc()"><big>=</big></button>
-            <button style="background-color:rgb(68, 155, 255); position:relative; left:50vw; transform:translate(-50%,0)" onclick="javascript:recalc()"><big>~</big></button>
+            
+            <div class="bottom-container-bar horizontal-center">
+                <button style="background-color:#4d4" onclick="javascript:addLeg()"><big>+</big></button>
+                <button style="background-color:orange" onclick="javascript:calc()"><big>=</big></button>
+                <button style="background-color:rgb(68, 155, 255)" onclick="javascript:recalc()"><big>~</big></button>
+            </div>
         </div>
 
         <br/><br/>
         <p align="center">Total:-&nbsp; <span id="tot_dist"><b>0</b></span> NM, <span id="tot_fuel"><b>0.0</b></span> Gal, <span id="tot_ete"><b>0.0</b></span> mins</p>
         <br/><br/>
 
-        <div class="bottom-bar">
+        <div class="bottom-container-bar horizontal-center">
             <img src="../res/save.svg" onclick="javascript:saveNavlog()"/>
             <img src="../res/menu.svg" onclick="javascript:manageNavlogs()"/>
             <img src="../res/download.svg" />
