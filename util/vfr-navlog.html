@@ -75,7 +75,7 @@
             }
 
             .thick{
-                border:solid 2px #000;
+                border:solid 2px #888;
             }
         </style>
     </head>
@@ -106,42 +106,42 @@
                 <div class="navlog-row">
                     <textarea disabled>From/&#13;To</textarea>
                     <div class="double-cell">
-                        <input size="3" value="Alt" disabled/><br/>
-                        <input size="3" value="Temp" disabled/>
+                        <input size="4" value="Alt" disabled/><br/>
+                        <input size="4" value="Temp" disabled/>
                     </div>
                     <div class="double-cell">
-                        <input size="3" value="TAS" disabled/><br/>
-                        <input size="3" value="CAS" disabled/>
+                        <input size="4" value="TAS" disabled/><br/>
+                        <input size="4" value="CAS" disabled/>
                     </div>
-                    <input size="3" value="Trk" disabled/>
-                    <input size="3" value="W/V" disabled/>
-                    <input size="3" value="Hdg" disabled/>
-                    <input size="3" value="GS" disabled/>
-                    <input size="3" value="Dist" disabled/>
+                    <input class="thick" size="4" value="Trk" disabled/>
+                    <input size="4" value="W/V" disabled/>
+                    <input class="thick" size="4" value="Hdg" disabled/>
+                    <input size="4" value="GS" disabled/>
+                    <input size="4" value="Dist" disabled/>
                     <div class="double-cell">
-                        <input size="3" value="Fuel" disabled/><br/>
-                        <input size="3" placeholder="g.p.h." id="gph"/>
+                        <input size="4" value="Fuel" disabled/><br/>
+                        <input size="4" placeholder="g.p.h." id="gph"/>
                     </div>
-                    <input size="3" value="ETE" disabled/>
+                    <input size="4" value="ETE" disabled/>
                 </div>
 
                 <div class="navlog-row">
                     <textarea class="legName"></textarea>
                     <div class="double-cell">
-                        <input type="text" size="3" class="alt"/><br/>
-                        <input type="text" size="3" class="temp"/>
+                        <input type="text" size="4" class="alt"/><br/>
+                        <input type="text" size="4" class="temp"/>
                     </div>
                     <div class="double-cell">
-                        <input type="text" size="3" class="tas"/><br/>
-                        <input type="text" size="3" class="cas"/>
+                        <input type="text" size="4" class="tas"/><br/>
+                        <input type="text" size="4" class="cas"/>
                     </div>
-                    <input type="text" size="3" class="trk thick" />
-                    <input type="text" size="3" class="wv"/>
-                    <input type="text" size="3" class="hdg thick"/>
-                    <input type="text" size="3" class="gs"/>
-                    <input type="text" size="3" class="dist"/>
-                    <input type="text" size="3" class="fuel"/>
-                    <input type="text" size="3" class="ete"/>
+                    <input type="text" size="4" class="trk thick" />
+                    <input type="text" size="4" class="wv"/>
+                    <input type="text" size="4" class="hdg thick"/>
+                    <input type="text" size="4" class="gs"/>
+                    <input type="text" size="4" class="dist"/>
+                    <input type="text" size="4" class="fuel"/>
+                    <input type="text" size="4" class="ete"/>
                     <div><button style="background-color:#f00;" onclick="javascript:delLeg(this)">X</button></div>
                 </div>
             </div>
@@ -197,20 +197,20 @@
             div.innerHTML=  "<div class=\"navlog-row\">"
                             +"<textarea class=\"legName\"></textarea>"
                             +"<div class=\"double-cell\">"
-                            +"<input size=\"3\" type=\"text\" class=\"alt\"/><br/>"
-                            +"<input size=\"3\" type=\"text\" class=\"temp\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"alt\"/><br/>"
+                            +"<input size=\"4\" type=\"text\" class=\"temp\"/>"
                             +"</div>"
                             +"<div class=\"double-cell\">"
-                            +"<input size=\"3\" type=\"text\" class=\"tas\"/><br/>"
-                            +"<input size=\"3\" type=\"text\" class=\"cas\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"tas\"/><br/>"
+                            +"<input size=\"4\" type=\"text\" class=\"cas\"/>"
                             +"</div>"
-                            +"<input size=\"3\" type=\"text\" class=\"trk thick\"/>"
-                            +"<input size=\"3\" type=\"text\" class=\"wv\"/>"
-                            +"<input size=\"3\" type=\"text\" class=\"hdg thick\"/>"
-                            +"<input size=\"3\" type=\"text\" class=\"gs\"/>"
-                            +"<input size=\"3\" type=\"text\" class=\"dist\"/>"
-                            +"<input size=\"3\" type=\"text\" class=\"fuel\"/>"
-                            +"<input size=\"3\" type=\"text\" class=\"ete\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"trk thick\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"wv\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"hdg thick\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"gs\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"dist\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"fuel\"/>"
+                            +"<input size=\"4\" type=\"text\" class=\"ete\"/>"
                             +"<div><button style=\"background-color:#f00;\" onclick=\"javascript:delLeg(this)\">X</button></div>"
                             +"</div>";
             document.getElementById('nlc').appendChild(div);
