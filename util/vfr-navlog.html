@@ -192,25 +192,25 @@
 
         function addLeg(){
             var div = document.createElement('div');
-            div.className = "navlog-row-container";
+            div.className = "navlog-row";
 
             div.innerHTML=  "<div class=\"navlog-row\">"
                             +"<textarea class=\"legName\"></textarea>"
                             +"<div class=\"double-cell\">"
-                            +"<input type=\"text\" class=\"alt\"/><br/>"
-                            +"<input type=\"text\" class=\"temp\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"alt\"/><br/>"
+                            +"<input size=\"3\" type=\"text\" class=\"temp\"/>"
                             +"</div>"
                             +"<div class=\"double-cell\">"
-                            +"<input type=\"text\" class=\"tas\"/><br/>"
-                            +"<input type=\"text\" class=\"cas\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"tas\"/><br/>"
+                            +"<input size=\"3\" type=\"text\" class=\"cas\"/>"
                             +"</div>"
-                            +"<input type=\"text\" class=\"trk thick\"/>"
-                            +"<input type=\"text\" class=\"wv\"/>"
-                            +"<input type=\"text\" class=\"hdg thick\"/>"
-                            +"<input type=\"text\" class=\"gs\"/>"
-                            +"<input type=\"text\" class=\"dist\"/>"
-                            +"<input type=\"text\" class=\"fuel\"/>"
-                            +"<input type=\"text\" class=\"ete\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"trk thick\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"wv\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"hdg thick\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"gs\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"dist\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"fuel\"/>"
+                            +"<input size=\"3\" type=\"text\" class=\"ete\"/>"
                             +"<div><button style=\"background-color:#f00;\" onclick=\"javascript:delLeg(this)\">X</button></div>"
                             +"</div>";
             document.getElementById('nlc').appendChild(div);
