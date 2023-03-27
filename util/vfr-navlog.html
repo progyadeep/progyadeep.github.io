@@ -125,6 +125,7 @@
 
             <br/>
             <p class="buttons-panel" align="center">
+                <button style="background-color:rgb(255, 0, 221)" onclick="javascript:resetNavlog()">&#9851;</button> &nbsp;
                 <button style="background-color:#4d4" onclick="javascript:addLeg()"><big>+</big></button> &nbsp;
                 <button style="background-color:orange" onclick="javascript:calc()"><big>=</big></button> &nbsp;
                 <button style="background-color:rgb(68, 155, 255)" onclick="javascript:recalc()"><big>~</big></button>
@@ -151,7 +152,7 @@
         var tot_fuel= 0.0
 
         //fetching the fields
-        var legNames = document.getElementsByClassName('legName');
+        /* legNames is used in saveNavlog()*/ var legNames = document.getElementsByClassName('legName');
         var alts = document.getElementsByClassName('alt');
         var tass = document.getElementsByClassName('tas');
         var tracks = document.getElementsByClassName('trk');
@@ -187,9 +188,6 @@
         }
         
         function delLeg(x){
-            //var target = x.parentNode.parentNode;
-            //target.parentNode.removeChild(target);
-
             var target = x.parentNode.parentNode;
             target.parentNode.removeChild(target.nextElementSibling);
             target.parentNode.removeChild(target);
@@ -300,7 +298,7 @@
 
             var data = document.getElementById("navlog-table").innerHTML;
             var c = document.createElement("a");
-            c.download = "VFR Navlog.txt";
+            c.download = prompt("Enter navlog file name", "navlog_1")+".vnl";
 
             var t = new Blob([data], {
             type: "text/plain"
@@ -317,6 +315,10 @@
         function readNavlog(event) {
             var input = event.target;
             if(input.value){
+                if(!input.value.toLowerCase().endsWith(".vnl")){
+                    input.value = null;
+                    alert("Incorrect file type!");
+                }
                 var reader = new FileReader();
                 reader.onload = function() {
                     var text = reader.result;
@@ -324,6 +326,20 @@
                     console.log(reader.result.substring(0, 200));
                 };
                 reader.readAsText(input.files[0]);
+            }
+
+            input.value = null;
+        }
+
+        function resetNavlog(){
+            for(var x=0; x<tass.length; x++){
+                alts[x].value = "";
+                tass[x].value = "";
+                winds[x].value = "";
+                headings[x].value = "";
+                ground_speeds[x].value = "";
+                fuel_reqs[x].value = "";
+                etes[x].value = "";
             }
         }
     </script>
