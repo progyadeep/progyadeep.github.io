@@ -301,7 +301,7 @@
             c.download = prompt("Enter navlog file name", "navlog_1")+".vnl";
 
             var t = new Blob([data], {
-            type: "text/plain"
+            type: ""
             });
             c.href = window.URL.createObjectURL(t);
             c.click();
