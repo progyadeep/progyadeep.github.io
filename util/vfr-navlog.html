@@ -163,6 +163,8 @@
         var fuel_reqs = document.getElementsByClassName('fuel');
         var etes = document.getElementsByClassName('ete');
 
+        var download_file_name = "navlog_1";
+
         function addLeg(){
             var n_row1 = document.createElement('tr');
             var n_row2 = document.createElement('tr');
@@ -298,8 +300,12 @@
 
             var data = document.getElementById("navlog-table").innerHTML;
             var c = document.createElement("a");
-            c.download = prompt("Enter navlog file name", "navlog_1")+".vnl";
+            c.download = prompt("Enter navlog file name", download_file_name);
+            if(c.download=="null"){
+                return;
+            }
 
+            c.download += ".vnl";
             var t = new Blob([data], {
             type: ""
             });
@@ -319,6 +325,9 @@
                     input.value = null;
                     alert("Incorrect file type!");
                 }
+
+                download_file_name = input.value; //for if the file is modified and downloaded again
+
                 var reader = new FileReader();
                 reader.onload = function() {
                     var text = reader.result;
