@@ -326,7 +326,7 @@
                     alert("Incorrect file type!");
                 }
 
-                download_file_name = input.value; //for if the file is modified and downloaded again
+                download_file_name = input.value.split("\\")[2]; //for if the file is modified and downloaded again
 
                 var reader = new FileReader();
                 reader.onload = function() {
