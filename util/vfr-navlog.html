@@ -250,12 +250,13 @@
                 tot_ete+= parseFloat((ete*60).toFixed(1));
             }
 
-            document.getElementById('tot_dist').innerHTML = "<b>"+tot_dist+"</b>";
-            document.getElementById('tot_fuel').innerHTML = "<b>"+tot_fuel+"</b>";
+            document.getElementById('tot_dist').innerHTML = "<b>"+tot_dist.toFixed(1)+"</b>";
+            document.getElementById('tot_fuel').innerHTML = "<b>"+tot_fuel.toFixed(1)+"</b>";
             document.getElementById('tot_ete').innerHTML = "<b>"+tot_ete.toFixed(1)+"</b>";
         }
 
         function recalc(){
+            tot_dist=0.0;
             tot_fuel=0.0;
             tot_ete=0.0;
 
@@ -279,8 +280,11 @@
                 else{
                     tot_ete += parseFloat(etes[x].value);
                 }
+
+                tot_dist += parseFloat(distances[x].value);
             }
 
+            document.getElementById('tot_dist').innerHTML = "<b>" + tot_dist.toFixed(1) + "</b>";
             document.getElementById('tot_fuel').innerHTML = "<b>" + tot_fuel.toFixed(1) + "</b>";
             document.getElementById('tot_ete').innerHTML = "<b>" + tot_ete.toFixed(1) + "</b>";
         }
@@ -332,7 +336,7 @@
                 reader.onload = function() {
                     var text = reader.result;
                     document.getElementById('navlog-table').innerHTML = text;
-                    console.log(reader.result.substring(0, 200));
+                    //console.log(reader.result.substring(0, 200));                    
                 };
                 reader.readAsText(input.files[0]);
             }
