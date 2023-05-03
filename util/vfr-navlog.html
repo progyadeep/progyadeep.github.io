@@ -336,7 +336,7 @@
                 reader.onload = function() {
                     var text = reader.result;
                     document.getElementById('navlog-table').innerHTML = text;
-                    //console.log(reader.result.substring(0, 200));                    
+                    recalc();
                 };
                 reader.readAsText(input.files[0]);
             }
