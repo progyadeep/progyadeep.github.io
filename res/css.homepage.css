@@ -1,0 +1,15 @@
+div.body-flex{
+    display: flex;
+    width:100%;
+    justify-content:space-between;
+}
+
+div.flex-left{
+    display:inline;
+    width:65%;
+}
+
+div.flex-right{
+    display:inline;
+    width:20%;
+}

@@ -72,6 +72,17 @@
             td.nobo{
                 border:none;
             }
+
+            #notes{
+                display:inline-block;
+                width:100%;
+                text-align:left!important;
+                /*font-family:'Open Sans';*/
+                font-size:14;
+                padding:4 4 4 4;
+                min-height:45;
+                resize: vertical;
+            }
         </style>
     </head>
 
@@ -119,6 +130,14 @@
                 <tr>
                     <td><input type="text" size="3" class="temp"/></td>
                     <td><input type="text" size="3" class="cas"/></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="border-right:none; padding-left:4; padding-right:0%; vertical-align: top;">
+                        <textarea id="notes" placeholder="Notes..." ></textarea>
+                    </td>
+                    <td colspan="5" style="border-left:none; padding-left:0%; padding-right:4; vertical-align: top;">
+                        <textarea id="notes" placeholder="Notes..." ></textarea>
+                    </td>
                 </tr>
                 </tbody>
             </table>

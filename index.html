@@ -1,40 +1,48 @@
 <html>
 <head>
   <title>FlyByProggy &bull; Homepage</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/></span>
-  <link rel="stylesheet" href="res/css.common.css"/></span>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="res/css.common.css"/>
+  <link rel="stylesheet" href="res/css.homepage.css"/>
 </head>
 <body>
-  <div class="body-container">
+  <div class="body-container" style="width:1250px">
     <h1 id=""site-title">FlyByProggy</h1>
     <p><big>An aviator's personal website about aviation stuff...</big></p>
 
     <br/><br/>
 
-    <h2 class="section-title">Utilities</h2>
-    <p><a href="util/vfr-navlog">VFR Navlog</a></p>
-  
-    <br/>
+    <div class="body-flex">
+      <div class="flex-left">
+        <p>
+        Content content content content content content content content content
+        content content content content content content content content content
+        content content content content content content content content content
+        content content content content content content content content content
+        content content content content content content content content content
+        content content content content content content content content content
+        content content content content content content content content content
+        content content content content content content content content content</p>
+      </div>
 
-    <h2>Help</h2>
-    <p><a href="help/cookie-policy">Cookie Policy</a></p>
-    <p><a href="help/content-policy.html">Content Policy</a></p>
-
-    <br/>
-
-    <h2>Connect</h2>
-    <p><a href="mailto:outreach@flybyproggy.sly.io">Email</a></p>
-    <p><a href="https://instagram.com/flybyproggy">Instagram</a></p>
-    <p><a href="#">Youtube</a></p>
-
+      <div class="flex-right">
+        <p><a href="#">Blog</a></p>
+        <p><a href="#">Flight School Notes</a></p>
+        <p><a href="#">Utilities</a></p>
+        <p><a href="#">About Me</a></p>
+        <br/><br/>
+        <a title="Connect on LinkedIN" href="https://linkedin.com/in/progyadeep"><img src="res/linkedin.svg" height="25" width="25"/></a> &nbsp;
+        <a title="Follow on Instagram" href="https://instagr.am/flybyproggy"><img src="res/instagram.svg" height="25" width="25"/></a> &nbsp;
+        <a title="Aviation Stack Exchange" href="#"><img src="res/aviation-se.png" height="25" width="25"/></a>
+      </div>
+    </div>
+    
     <br/><br/>
 
     <hr/>
-    <p>&copy; <span id="cryr"></span></p>
+    <p id="footer"></p>
   
   </div>
   </body>
-    <script>
-      document.getElementById('cryr').innerHTML = new Date().getYear() + 1900;
-    </script>
+    <script src="res/script.common.js"></script>
 </html>
