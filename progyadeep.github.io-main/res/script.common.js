@@ -1,2 +1,0 @@
-document.getElementById('footer').innerHTML = "&copy;" + (new Date().getYear() + 1900)
-                                                +". All content licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons CC BY-SA 4.0</a>";
