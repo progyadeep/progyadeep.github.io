@@ -353,7 +353,61 @@
                     var text = reader.result;
                     
                     //deleting present navlog
-                    var roll_back = "<tbody>"
+                    reinit_0();
+                    
+                    var ct=0;
+                    var ax = text.split("\n"), axl = ax.length;
+                    try{
+                        for(var a=1; a<axl-2; a++){
+                            addLeg();
+                            var b = ax[a].split(",");
+                            legNames[ct].value = b[0].replaceAll("#", "\n");
+                            alts[ct].value = b[1];
+                            tass[ct].value = b[2];
+                            tracks[ct].value = b[3];
+                            winds[ct].value = b[4];
+                            headings[ct].value = b[5];
+                            ground_speeds[ct].value = b[6];
+                            distances[ct].value = b[7];
+                            fuel_reqs[ct].value = b[8];
+                            etes[ct].value = b[9];
+
+                            ct+=1;
+                        }
+
+                        var b = ax[axl-1].split(",");
+                        document.getElementById('notes1').value = b[0].replaceAll('?',',').replaceAll('#','\n');
+                        document.getElementById('notes2').value = b[1].replaceAll('?',',').replaceAll('#','\n');
+
+                    }catch(e){
+                        alert('Error! Corrupted navlog file!!!');
+                        reinit_0();
+                        addLeg();
+                    }
+                };
+                reader.readAsText(input.files[0]);
+            }
+
+            input.value = null;
+        }
+
+        function resetNavlog(){
+            for(var x=0; x<tass.length; x++){
+                alts[x].value = "";
+                tass[x].value = "";
+                winds[x].value = "";
+                headings[x].value = "";
+                ground_speeds[x].value = "";
+                fuel_reqs[x].value = "";
+                etes[x].value = "";
+            }
+        }
+
+        function reinit_0(){
+            //function re-initializes navlog WITHOUT ADDING EMPTY LEGS
+            //call addLeg() after calling reinit_0() if needed
+
+            document.getElementById('navlog-table').innerHTML = "<tbody>"
                                             +"<tr>"
                                             +"<td rowspan=\"2\">From/<br/>To</td>"
                                             +"<td>ALT</td>"
@@ -381,59 +435,6 @@
                                             +"<textarea id=\"notes2\" placeholder=\"Notes...\" ></textarea>"
                                             +"</td>"
                                             +"</tr>";
-
-                    document.getElementById('navlog-table').innerHTML = roll_back;
-                    
-                    var ct=0;
-                    var flag=0;
-                    try{
-                        var ax = text.split("\n"), axl = ax.length;
-                        for(var a=1; a<axl-2; a++){
-                            addLeg();
-                            var b = ax[a].split(",");
-                            legNames[ct].value = b[0].replaceAll("#", "\n");
-                            alts[ct].value = b[1];
-                            tass[ct].value = b[2];
-                            tracks[ct].value = b[3];
-                            winds[ct].value = b[4];
-                            headings[ct].value = b[5];
-                            ground_speeds[ct].value = b[6];
-                            distances[ct].value = b[7];
-                            fuel_reqs[ct].value = b[8];
-                            etes[ct].value = b[9];
-
-                            ct+=1;
-                        }
-
-                        flag = 1; //so far, no issues
-
-                        var b = ax[axl-1].split(",");
-                        document.getElementById('notes1').value = b[0].replaceAll('?',',').replaceAll('#','\n');
-                        document.getElementById('notes2').value = b[1].replaceAll('?',',').replaceAll('#','\n');
-                    }catch(e){
-                        alert('Error! Corrupted navlog file!!!');
-                        if(!flag){
-                            document.getElementById('navlog-table').innerHTML = roll_back;
-                            addLeg();
-                        }
-                    }
-                };
-                reader.readAsText(input.files[0]);
-            }
-
-            input.value = null;
-        }
-
-        function resetNavlog(){
-            for(var x=0; x<tass.length; x++){
-                alts[x].value = "";
-                tass[x].value = "";
-                winds[x].value = "";
-                headings[x].value = "";
-                ground_speeds[x].value = "";
-                fuel_reqs[x].value = "";
-                etes[x].value = "";
-            }
         }
     </script>
 </html>
