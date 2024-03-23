@@ -73,7 +73,7 @@
                 border:none;
             }
 
-            #notes{
+            #notes1, #notes2{
                 display:inline-block;
                 width:100%;
                 text-align:left!important;
@@ -91,7 +91,7 @@
             <h3 align="center">VFR Navlog</h3>
             <h5 align="center">@FlyByProggy</h5><br/>
 
-            <!------------BETA------------->
+            <!------------------------->
             <table id="navlog-table" style="text-align:center">
                 <tbody>
                 <tr>
@@ -134,10 +134,10 @@
                 </tbody>
                 <tr id="notes_row">
                     <td colspan="6" style="border-right:none; padding-left:4; padding-right:0%; vertical-align: top;">
-                        <textarea id="notes" placeholder="Notes..." ></textarea>
+                        <textarea id="notes1" placeholder="Notes..." ></textarea>
                     </td>
                     <td colspan="5" style="border-left:none; padding-left:0%; padding-right:4; vertical-align: top;">
-                        <textarea id="notes" placeholder="Notes..." ></textarea>
+                        <textarea id="notes2" placeholder="Notes..." ></textarea>
                     </td>
                 </tr>
             </table>
@@ -168,7 +168,7 @@
         
         var tot_dist = 0.0;
         var tot_ete= 0.0;
-        var tot_fuel= 0.0
+        var tot_fuel= 0.0;
 
         //fetching the fields
         /* legNames is used in saveNavlog()*/ var legNames = document.getElementsByClassName('legName');
@@ -309,26 +309,23 @@
         }
 
         function saveNavlog(){
-            //---------------test area-----------------
-            var all_inps = document.getElementsByTagName('input');
-            var all_text = document.getElementsByTagName('textarea');
+            var data = "From/To,ALT,TAS,TRK Mag,W/V Mag,HDG Mag,GS,Dist,Fuel,ETE\n";
 
-            for(var ti=0; ti<all_inps.length-1; ti++){
-                all_inps[ti].setAttribute("value", all_inps[ti].value.toString());
+            for(var t=0; t<alts.length; t++){
+                data+= legNames[t].value.replaceAll('\n','#') + ',' + alts[t].value + ',' + tass[t].value + ',' + tracks[t].value + ',' + winds[t].value + ',' 
+                        + headings[t].value + ',' + ground_speeds[t].value + ',' + distances[t].value + ',' + fuel_reqs[t].value + ',' + etes[t].value + '\n';
             }
 
-            for(var ti=0; ti<all_text.length; ti++){
-                all_text[ti].innerHTML= all_text[ti].value;
-            }
+            data+= 'Notes,Notes\n' + document.getElementById('notes1').value.replaceAll(',','?').replaceAll('\n','#') + ',' 
+                    + document.getElementById('notes2').value.replaceAll(',','?').replaceAll('\n','#');
 
-            var data = document.getElementById("navlog-table").innerHTML;
             var c = document.createElement("a");
             c.download = prompt("Enter navlog file name", download_file_name);
             if(c.download=="null"){
                 return;
             }
 
-            c.download += ".vnl";
+            c.download += ".csv";
             var t = new Blob([data], {
             type: ""
             });
@@ -344,7 +341,7 @@
         function readNavlog(event) {
             var input = event.target;
             if(input.value){
-                if(!input.value.toLowerCase().endsWith(".vnl")){
+                if(!input.value.toLowerCase().endsWith(".csv")){
                     input.value = null;
                     alert("Incorrect file type!");
                 }
@@ -354,8 +351,72 @@
                 var reader = new FileReader();
                 reader.onload = function() {
                     var text = reader.result;
-                    document.getElementById('navlog-table').innerHTML = text;
-                    recalc();
+                    
+                    //deleting present navlog
+                    var roll_back = "<tbody>"
+                                            +"<tr>"
+                                            +"<td rowspan=\"2\">From/<br/>To</td>"
+                                            +"<td>ALT</td>"
+                                            +"<td>TAS</td>"
+                                            +"<td rowspan=\"2\">TRK Mag</td>"
+                                            +"<td rowspan=\"2\">W/V Mag</td>"
+                                            +"<td rowspan=\"2\">HDG Mag</td>"
+                                            +"<td rowspan=\"2\">GS</td>"
+                                            +"<td rowspan=\"2\">Dist</td>"
+                                            +"<td>Fuel Req</td>"
+                                            +"<td rowspan=\"2\">ETE</td>"
+                                            +"<td rowspan=\"2\">ATA</td>"
+                                            +"</tr>"
+                                            +"<tr>"
+                                            +"<td>Temp</td>"
+                                            +"<td>CAS</td>"
+                                            +"<td><input type=\"text\" size=\"3\" placeholder=\"GPH\" id=\"gph\"/></td>"
+                                            +"</tr>"
+                                            +"</tbody>"
+                                            +"<tr id=\"notes_row\">"
+                                            +"<td colspan=\"6\" style=\"border-right:none; padding-left:4; padding-right:0%; vertical-align: top;\">"
+                                            +"<textarea id=\"notes1\" placeholder=\"Notes...\" ></textarea>"
+                                            +"</td>"
+                                            +"<td colspan=\"5\" style=\"border-left:none; padding-left:0%; padding-right:4; vertical-align: top;\">"
+                                            +"<textarea id=\"notes2\" placeholder=\"Notes...\" ></textarea>"
+                                            +"</td>"
+                                            +"</tr>";
+
+                    document.getElementById('navlog-table').innerHTML = roll_back;
+                    
+                    var ct=0;
+                    var flag=0;
+                    try{
+                        var ax = text.split("\n"), axl = ax.length;
+                        for(var a=1; a<axl-2; a++){
+                            addLeg();
+                            var b = ax[a].split(",");
+                            legNames[ct].value = b[0].replaceAll("#", "\n");
+                            alts[ct].value = b[1];
+                            tass[ct].value = b[2];
+                            tracks[ct].value = b[3];
+                            winds[ct].value = b[4];
+                            headings[ct].value = b[5];
+                            ground_speeds[ct].value = b[6];
+                            distances[ct].value = b[7];
+                            fuel_reqs[ct].value = b[8];
+                            etes[ct].value = b[9];
+
+                            ct+=1;
+                        }
+
+                        flag = 1; //so far, no issues
+
+                        var b = ax[axl-1].split(",");
+                        document.getElementById('notes1').value = b[0].replaceAll('?',',').replaceAll('#','\n');
+                        document.getElementById('notes2').value = b[1].replaceAll('?',',').replaceAll('#','\n');
+                    }catch(e){
+                        alert('Error! Corrupted navlog file!!!');
+                        if(!flag){
+                            document.getElementById('navlog-table').innerHTML = roll_back;
+                            addLeg();
+                        }
+                    }
                 };
                 reader.readAsText(input.files[0]);
             }
