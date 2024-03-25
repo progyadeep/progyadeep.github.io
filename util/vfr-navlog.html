@@ -23,19 +23,54 @@
             h3, h5{
                 margin:0 0 0 0;
             }
-            
+
+            table, td{
+                border-collapse:collapse;
+            }
+
+            td{
+                border:solid 1px #888;
+                padding:0 0 0 0!important;
+            }
+
+            tr.hd_r td{
+                padding:1 8 1 8!important;
+            }
+
+            td#gph_td{
+                padding:0 0 0 0!important;
+            }
+
+            td.nobo{
+                border:none;
+            }
+
+            textarea.legName{
+                margin:0 0 0 0;
+                padding:3 3 3 3;
+                height:70px;
+            }
+
             textarea{
-                width:90px;
+                width:80px;
                 resize: none;
                 text-align:center;
                 font-size:18px;
                 border:solid 0.5px #ddd;
+                margin:0 0 0 0;
             }
 
             input{
                 text-align:center;
                 font-size:18px;
-                border:solid 0.5px #ddd;
+                width: 100%;
+                height:70px;
+                border:none;
+                color: #888;
+            }
+
+            input.alt, input.tas, input.temp, input.cas, input#gph{
+                height: 34px!important;
             }
 
             .buttons-panel > img{
@@ -50,20 +85,8 @@
             }
 
             .thick{
-                border:solid 2px #888;
-            }
-
-            table, th, tr, td{
-                border-collapse:collapse;
-            }
-
-            th, td{
-                border:solid 1px #888;
-                padding:1 4 1 4;
-            }
-
-            td.nobo{
-                border:none;
+                color: #000;
+                font-weight: bold;
             }
 
             #notes1, #notes2{
@@ -71,7 +94,7 @@
                 width:100%;
                 text-align:left!important;
                 font-size:14;
-                padding:4 4 4 4;
+                padding:5 5 5 5;
                 min-height:45;
                 resize: vertical;
             }
@@ -87,23 +110,23 @@
             <!------------------------->
             <table id="navlog-table" align="center" style="text-align:center">
                 <tbody>
-                <tr>
+                <tr class="hd_r">
                     <td rowspan="2">From/<br/>To</td>
                     <td>ALT</td>
                     <td>TAS</td>
-                    <td rowspan="2">TRK Mag</td>
-                    <td rowspan="2">W/V Mag</td>
-                    <td rowspan="2">HDG Mag</td>
-                    <td rowspan="2">GS</td>
+                    <td rowspan="2">TRK °M</td>
+                    <td rowspan="2">W/V °M</td>
+                    <td rowspan="2">HDG °M</td>
+                    <td rowspan="2">G.S.</td>
                     <td rowspan="2">Dist</td>
-                    <td>Fuel Req</td>
+                    <td>Fuel</td>
                     <td rowspan="2">ETE</td>
                     <td rowspan="2">ATA</td>
                 </tr>
-                <tr>
+                <tr class="hd_r">
                     <td>Temp</td>
                     <td>CAS</td>
-                    <td><input type="text" size="3" placeholder="GPH" id="gph"/></td>
+                    <td id="gph_td"><input type="text" size="3" placeholder="GPH" id="gph"/></td>
                 </tr>
 
                 <tr>
@@ -137,6 +160,8 @@
 
             <br/>
             <p class="buttons-panel" align="center">
+                <button style="background-color:#bbb" onclick="javascript:ins_sym('↗')" title="Insert '↗' for ALT in present leg"><big>↗</big></button> &nbsp;
+                <button style="background-color:#bbb" onclick="javascript:ins_sym('↘')" title="Insert '↘' for ALT in present leg"><big>↘</big></button> &nbsp;
                 <button style="background-color:rgb(255, 0, 221)" onclick="javascript:resetNavlog()">&#9851;</button> &nbsp;
                 <button style="background-color:#4d4" onclick="javascript:addLeg()"><big>+</big></button> &nbsp;
                 <button style="background-color:orange" onclick="javascript:calc()"><big>=</big></button> &nbsp;
@@ -162,6 +187,13 @@
         var tot_dist = 0.0;
         var tot_ete= 0.0;
         var tot_fuel= 0.0;
+
+        var activeAltField = null;
+
+        document.onclick = function(){
+            var ae = document.activeElement;
+            activeAltField = ae.className=='alt'?ae:null;
+        };
 
         //fetching the fields
         /* legNames is used in saveNavlog()*/ var legNames = document.getElementsByClassName('legName');
@@ -401,23 +433,23 @@
             //call addLeg() after calling reinit_0() if needed
 
             document.getElementById('navlog-table').innerHTML = "<tbody>"
-                                            +"<tr>"
+                                            +"<tr class=\"hd_r\">"
                                             +"<td rowspan=\"2\">From/<br/>To</td>"
                                             +"<td>ALT</td>"
                                             +"<td>TAS</td>"
                                             +"<td rowspan=\"2\">TRK Mag</td>"
                                             +"<td rowspan=\"2\">W/V Mag</td>"
                                             +"<td rowspan=\"2\">HDG Mag</td>"
-                                            +"<td rowspan=\"2\">GS</td>"
+                                            +"<td rowspan=\"2\">G.S.</td>"
                                             +"<td rowspan=\"2\">Dist</td>"
                                             +"<td>Fuel Req</td>"
                                             +"<td rowspan=\"2\">ETE</td>"
                                             +"<td rowspan=\"2\">ATA</td>"
                                             +"</tr>"
-                                            +"<tr>"
+                                            +"<tr class=\"hd_r\">"
                                             +"<td>Temp</td>"
                                             +"<td>CAS</td>"
-                                            +"<td><input type=\"text\" size=\"3\" placeholder=\"GPH\" id=\"gph\"/></td>"
+                                            +"<td id=\"gph_td\"><input type=\"text\" size=\"3\" placeholder=\"GPH\" id=\"gph\"/></td>"
                                             +"</tr>"
                                             +"</tbody>"
                                             +"<tr id=\"notes_row\">"
@@ -428,6 +460,12 @@
                                             +"<textarea id=\"notes2\" placeholder=\"Notes...\" ></textarea>"
                                             +"</td>"
                                             +"</tr>";
+        }
+
+        function ins_sym(s){
+            if(activeAltField){
+                activeAltField.value = s;
+            }
         }
     </script>
 </html>
