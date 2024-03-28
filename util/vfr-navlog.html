@@ -89,7 +89,7 @@
                 font-weight: bold;
             }
 
-            #notes1, #notes2{
+            #notes{
                 display:inline-block;
                 width:100%;
                 text-align:left!important;
@@ -149,11 +149,8 @@
                 </tr>
                 </tbody>
                 <tr id="notes_row">
-                    <td colspan="6" style="border-right:none; padding-left:4; padding-right:0%; vertical-align: top;">
-                        <textarea id="notes1" placeholder="Notes..." ></textarea>
-                    </td>
-                    <td colspan="5" style="border-left:none; padding-left:0%; padding-right:4; vertical-align: top;">
-                        <textarea id="notes2" placeholder="Notes..." ></textarea>
+                    <td colspan="11">
+                        <textarea id="notes" placeholder="Notes..." ></textarea>
                     </td>
                 </tr>
             </table>
@@ -162,7 +159,7 @@
             <p class="buttons-panel" align="center">
                 <button style="background-color:#bbb" onclick="javascript:ins_sym('↗')" title="Insert '↗' for ALT in present leg"><big>↗</big></button> &nbsp;
                 <button style="background-color:#bbb" onclick="javascript:ins_sym('↘')" title="Insert '↘' for ALT in present leg"><big>↘</big></button> &nbsp;
-                <button style="background-color:rgb(255, 0, 221)" onclick="javascript:resetNavlog()">&#9851;</button> &nbsp;
+                <button style="background-color:rgb(255, 0, 221)" onclick="javascript:resetNavlog()"><big>&#9851;</big></button> &nbsp;
                 <button style="background-color:#4d4" onclick="javascript:addLeg()"><big>+</big></button> &nbsp;
                 <button style="background-color:orange" onclick="javascript:calc()"><big>=</big></button> &nbsp;
                 <button style="background-color:rgb(68, 155, 255)" onclick="javascript:recalc()"><big>~</big></button>
@@ -341,8 +338,7 @@
                         + headings[t].value + ',' + ground_speeds[t].value + ',' + distances[t].value + ',' + fuel_reqs[t].value + ',' + etes[t].value + '\n';
             }
 
-            data+= 'Notes,Notes\n' + document.getElementById('notes1').value.replaceAll(',','?').replaceAll('\n','#') + ',' 
-                    + document.getElementById('notes2').value.replaceAll(',','?').replaceAll('\n','#');
+            data+= 'Notes\n' + document.getElementById('notes').value.replaceAll(',','?').replaceAll('\n','#');
 
             var c = document.createElement("a");
             c.download = prompt("Enter navlog file name", download_file_name);
@@ -400,9 +396,7 @@
                             ct+=1;
                         }
 
-                        var b = ax[axl-1].split(",");
-                        document.getElementById('notes1').value = b[0].replaceAll('?',',').replaceAll('#','\n');
-                        document.getElementById('notes2').value = b[1].replaceAll('?',',').replaceAll('#','\n');
+                        document.getElementById('notes').value = ax[axl-1].replaceAll('?',',').replaceAll('#','\n');
 
                     }catch(e){
                         alert('Error! Corrupted navlog file!!!');
@@ -453,11 +447,8 @@
                                             +"</tr>"
                                             +"</tbody>"
                                             +"<tr id=\"notes_row\">"
-                                            +"<td colspan=\"6\" style=\"border-right:none; padding-left:4; padding-right:0%; vertical-align: top;\">"
-                                            +"<textarea id=\"notes1\" placeholder=\"Notes...\" ></textarea>"
-                                            +"</td>"
-                                            +"<td colspan=\"5\" style=\"border-left:none; padding-left:0%; padding-right:4; vertical-align: top;\">"
-                                            +"<textarea id=\"notes2\" placeholder=\"Notes...\" ></textarea>"
+                                            +"<td colspan=\"11\">"
+                                            +"<textarea id=\"notes\" placeholder=\"Notes...\" ></textarea>"
                                             +"</td>"
                                             +"</tr>";
         }
