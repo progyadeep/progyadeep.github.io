@@ -3,8 +3,17 @@
     src: url('OpenSans-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'OSP';
+    src: url('OSP-DIN.ttf');
+}
+
 html{
     font-family:'Open Sans';
+}
+
+h1,h2, h3{
+    font-family:'OSP';
 }
 
 div.body-container{
