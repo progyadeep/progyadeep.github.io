@@ -1,0 +1,463 @@
+<!DOCTYPE HTML5>
+<html>
+    <head>
+        <title>VFR Navlog &bull; FlyByProggy</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../res/css.common.css"/>
+        <style>
+            button{
+                cursor:pointer;
+                color:#fff;
+                display:inline;
+                margin:2 2 2 2;
+                border-radius:5px;
+                border:none;
+                transition: 0.1s;
+            }
+
+            button:hover{
+                opacity:0.85;
+                transition: 0.1s;
+            }
+
+            h3, h5{
+                margin:0 0 0 0;
+            }
+
+            table, td{
+                border-collapse:collapse;
+            }
+
+            td{
+                border:solid 1px #888;
+                padding:0 0 0 0!important;
+            }
+
+            tr.hd_r td{
+                padding:1 8 1 8!important;
+            }
+
+            td#gph_td{
+                padding:0 0 0 0!important;
+            }
+
+            td.nobo{
+                border:none;
+            }
+
+            textarea.legName{
+                margin:0 0 0 0;
+                padding:3 3 3 3;
+                height:70px;
+            }
+
+            textarea{
+                width:80px;
+                resize: none;
+                text-align:center;
+                font-size:18px;
+                border:solid 0.5px #ddd;
+                margin:0 0 0 0;
+            }
+
+            input{
+                text-align:center;
+                font-size:18px;
+                width: 100%;
+                height:70px;
+                border:none;
+                color: #888;
+            }
+
+            input.alt, input.tas, input.temp, input.cas, input#gph{
+                height: 34px!important;
+            }
+
+            .buttons-panel > img{
+                width:20px;
+                height:20px;
+                cursor:pointer;
+                transition:0.2s;
+            }
+
+            .buttons-panel > img:hover{
+                opacity: 0.5;
+            }
+
+            .thick{
+                color: #000;
+                font-weight: bold;
+            }
+
+            #notes{
+                display:inline-block;
+                width:100%;
+                text-align:left!important;
+                font-size:14;
+                padding:5 5 5 5;
+                min-height:45;
+                resize: vertical;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container_a" style="display:inline-block; width:100%">
+            <br/>
+            <h3 align="center">VFR Navlog</h3>
+            <h5 align="center">@FlyByProggy</h5><br/>
+
+            <!------------------------->
+            <table id="navlog-table" align="center" style="text-align:center">
+                <tbody>
+                <tr class="hd_r">
+                    <td rowspan="2">From/<br/>To</td>
+                    <td>ALT</td>
+                    <td>TAS</td>
+                    <td rowspan="2">TRK °M</td>
+                    <td rowspan="2">W/V °M</td>
+                    <td rowspan="2">HDG °M</td>
+                    <td rowspan="2">G.S.</td>
+                    <td rowspan="2">Dist</td>
+                    <td>Fuel</td>
+                    <td rowspan="2">ETE</td>
+                    <td rowspan="2">ATA</td>
+                </tr>
+                <tr class="hd_r">
+                    <td>Temp</td>
+                    <td>CAS</td>
+                    <td id="gph_td"><input type="text" size="3" placeholder="GPH" id="gph"/></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2"><textarea class="legName"></textarea></td>
+                    <td><input type="text" size="3" class="alt"/></td>
+                    <td><input type="text" size="3" class="tas"/></td>
+                    <td rowspan="2"><input type="text" size="3" class="trk thick"/></td>
+                    <td rowspan="2"><input type="text" size="3" class="wv"/></td>
+                    <td rowspan="2"><input type="text" size="3" class="hdg thick"/></td>
+                    <td rowspan="2"><input type="text" size="3" class="gs"/></td>
+                    <td rowspan="2"><input type="text" size="3" class="dist"/></td>
+                    <td rowspan="2"><input type="text" size="3" class="fuel"/></td>
+                    <td rowspan="2"><input type="text" size="3" class="ete"/></td>
+                    <td rowspan="2"><input type="text" size="3" style="border:none" disabled/></td>
+                    <td rowspan="2" class="nobo"><button style="background-color:#f00;" onclick="javascript:delLeg(this)">X</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" size="3" class="temp"/></td>
+                    <td><input type="text" size="3" class="cas"/></td>
+                </tr>
+                </tbody>
+                <tr id="notes_row">
+                    <td colspan="11">
+                        <textarea id="notes" placeholder="Notes..." ></textarea>
+                    </td>
+                </tr>
+            </table>
+
+            <br/>
+            <p class="buttons-panel" align="center">
+                <button style="background-color:#bbb" onclick="javascript:ins_sym('↗')" title="Insert '↗' for ALT in present leg"><big>↗</big></button> &nbsp;
+                <button style="background-color:#bbb" onclick="javascript:ins_sym('↘')" title="Insert '↘' for ALT in present leg"><big>↘</big></button> &nbsp;
+                <button style="background-color:rgb(255, 0, 221)" onclick="javascript:resetNavlog()"><big>&#9851;</big></button> &nbsp;
+                <button style="background-color:#4d4" onclick="javascript:addLeg()"><big>+</big></button> &nbsp;
+                <button style="background-color:orange" onclick="javascript:calc()"><big>=</big></button> &nbsp;
+                <button style="background-color:rgb(68, 155, 255)" onclick="javascript:recalc()"><big>~</big></button>
+            </p>
+
+            <p align="center">Total:-&nbsp; <span id="tot_dist"><b>0</b></span> NM, <span id="tot_fuel"><b>0.0</b></span> Gal, <span id="tot_ete"><b>0.0</b></span> mins</p>
+
+            <br/>
+            <p class="buttons-panel" align="center">
+                <img src="../res/download.svg" onclick="javascript:saveNavlog()"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../res/upload.svg" onclick="javascript:loadNavlog()"/>
+            </p>
+        </div>
+        <input type="file" id="ff" accept=".csv" style="opacity:0; position:absolute; z-index:-1; left:-1000vw" onchange="javascript:readNavlog(event)"/>
+        
+    </body>
+
+    <script type="text/javascript">
+        //-----------GLOBAL JAVASCRIPT VARIABLES-----------------
+        var this_navlog_title = "";
+        
+        var tot_dist = 0.0;
+        var tot_ete= 0.0;
+        var tot_fuel= 0.0;
+
+        var activeAltField = null;
+
+        document.onclick = function(){
+            var ae = document.activeElement;
+            activeAltField = ae.className=='alt'?ae:null;
+        };
+
+        //fetching the fields
+        /* legNames is used in saveNavlog()*/ var legNames = document.getElementsByClassName('legName');
+        var alts = document.getElementsByClassName('alt');
+        var tass = document.getElementsByClassName('tas');
+        var tracks = document.getElementsByClassName('trk');
+        var winds = document.getElementsByClassName('wv');
+        var headings = document.getElementsByClassName('hdg');
+        var ground_speeds = document.getElementsByClassName('gs');
+        var distances = document.getElementsByClassName('dist');
+        var fuel_reqs = document.getElementsByClassName('fuel');
+        var etes = document.getElementsByClassName('ete');
+
+        var download_file_name = "navlog_1";
+
+        function addLeg(){
+            var n_row1 = document.createElement('tr');
+            var n_row2 = document.createElement('tr');
+
+            n_row1.innerHTML=  "<td rowspan=\"2\"><textarea class=\"legName\"></textarea></td>"
+                            +"<td><input type=\"text\" size=\"3\" class=\"alt\"/></td>"
+                            +"<td><input type=\"text\" size=\"3\" class=\"tas\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" class=\"trk thick\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" class=\"wv\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" class=\"hdg thick\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" class=\"gs\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" class=\"dist\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" class=\"fuel\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" class=\"ete\"/></td>"
+                            +"<td rowspan=\"2\"><input type=\"text\" size=\"3\" style=\"border:none\" disabled/></td>"
+                            +"<td rowspan=\"2\" class=\"nobo\"><button style=\"background-color:#f00;\" onclick=\"javascript:delLeg(this)\">X</button></td>";
+                            
+            n_row2.innerHTML = "<td><input type=\"text\" size=\"3\" class=\"temp\"/></td>"
+                                +"<td><input type=\"text\" size=\"3\" class=\"cas\"/></td>";
+
+            document.getElementsByTagName('tbody')[0].appendChild(n_row1);
+            document.getElementsByTagName('tbody')[0].appendChild(n_row2);
+        }
+        
+        function delLeg(x){
+            var target = x.parentNode.parentNode;
+            target.parentNode.removeChild(target.nextElementSibling);
+            target.parentNode.removeChild(target);
+        }
+        
+        function calc(){
+            tot_dist=0.0;
+            tot_fuel=0.0;
+            tot_ete=0.0;
+
+            //filler variables
+            var alt_this = alts[0].value;
+            var tas_this = tass[0].value;
+            var wv_this = winds[0].value;
+            
+            //loop
+            for(var x=0; x<alts.length; x++){
+                alts[x].value!=""?alt_this=alts[x].value:alts[x].value=alt_this;
+                tass[x].value!=""?tas_this=tass[x].value:tass[x].value=tas_this;
+                winds[x].value!= ""?wv_this=winds[x].value:winds[x].value=wv_this;
+                
+                //calculating wind correction angle and (mag) heading
+                var tmp = winds[x].value;
+                var wv_c = [tmp.slice(0,3), tmp.slice(3)];
+                var trk = parseInt(tracks[x].value);
+                trk = trk==0?360:trk;
+                var d = parseInt(wv_c[0])-trk;
+                d = d>180?d-360:d;
+                
+                var wca = Math.asin(parseFloat(wv_c[1])/parseFloat(tas_this)*Math.sin(d*Math.PI/180.0))*180.0/Math.PI;
+                //rounding off
+                wca = 1.0*Math.round(wca);
+                hdg = trk + wca;
+                hdg = hdg>360?hdg-360:(hdg<0?360+hdg:hdg);
+                
+                //formatting with 0s
+                headings[x].value = hdg<10?"00"+hdg:(hdg<100?"0"+hdg:hdg);
+                
+                //calculating ground speed
+                var tas_c = Math.cos(Math.abs(wca)*Math.PI/180.0)*parseInt(tas_this); //trk component of AS
+                var hwd_c = Math.cos(d*Math.PI/180.0)*parseInt(wv_c[1]); //headwind component
+                var gs = Math.round(tas_c - hwd_c); //groundspeed
+                ground_speeds[x].value = gs;
+                
+                var d_t = parseFloat(distances[x].value);
+                tot_dist+= d_t;
+
+                //calculating fuel and ETE
+                var ete = d_t/gs;
+                var fuel = 0;
+
+                if(fuel = ete*parseFloat(document.getElementById('gph').value)){
+                    fuel_reqs[x].value = fuel.toFixed(1);
+                    tot_fuel+= parseFloat(fuel.toFixed(1));
+                }
+                etes[x].value = (ete*60).toFixed(1);
+
+                tot_ete+= parseFloat((ete*60).toFixed(1));
+            }
+
+            document.getElementById('tot_dist').innerHTML = "<b>"+tot_dist.toFixed(1)+"</b>";
+            document.getElementById('tot_fuel').innerHTML = "<b>"+tot_fuel.toFixed(1)+"</b>";
+            document.getElementById('tot_ete').innerHTML = "<b>"+tot_ete.toFixed(1)+"</b>";
+        }
+
+        function recalc(){
+            tot_dist=0.0;
+            tot_fuel=0.0;
+            tot_ete=0.0;
+
+            for(var x=0; x<fuel_reqs.length; x++){
+                if(fuel_reqs[x].value.includes("+")){
+                    var t_f_s_a = fuel_reqs[x].value.split("+");
+                    for(var y=0; y<t_f_s_a.length; y++){
+                        tot_fuel+= parseFloat(t_f_s_a[y]);
+                    }
+                }
+                else{
+                    tot_fuel+= parseFloat(fuel_reqs[x].value);
+                }
+
+                if(etes[x].value.includes("+")){
+                    var e_f_s_a = etes[x].value.split("+");
+                    for(var y=0; y<e_f_s_a.length; y++){
+                        tot_ete+= parseFloat(e_f_s_a[y]);
+                    }
+                }
+                else{
+                    tot_ete += parseFloat(etes[x].value);
+                }
+
+                tot_dist += parseFloat(distances[x].value);
+            }
+
+            document.getElementById('tot_dist').innerHTML = "<b>" + tot_dist.toFixed(1) + "</b>";
+            document.getElementById('tot_fuel').innerHTML = "<b>" + tot_fuel.toFixed(1) + "</b>";
+            document.getElementById('tot_ete').innerHTML = "<b>" + tot_ete.toFixed(1) + "</b>";
+        }
+
+        function saveNavlog(){
+            var data = "From/To,ALT,TAS,TRK Mag,W/V Mag,HDG Mag,GS,Dist,Fuel,ETE\n";
+
+            for(var t=0; t<alts.length; t++){
+                data+= legNames[t].value.replaceAll('\n','#') + ',' + alts[t].value + ',' + tass[t].value + ',' + tracks[t].value + ',' + winds[t].value + ',' 
+                        + headings[t].value + ',' + ground_speeds[t].value + ',' + distances[t].value + ',' + fuel_reqs[t].value + ',' + etes[t].value + '\n';
+            }
+
+            data+= 'Notes\n' + document.getElementById('notes').value.replaceAll(',','?').replaceAll('\n','#');
+
+            var c = document.createElement("a");
+            c.download = prompt("Enter navlog file name", download_file_name);
+            if(c.download=="null"){
+                return;
+            }
+
+            c.download += ".csv";
+            var t = new Blob([data], {
+            type: ""
+            });
+            c.href = window.URL.createObjectURL(t);
+            c.click();
+        }
+
+        function loadNavlog(){
+            var f= document.getElementById('ff');
+            f.click();
+        }
+
+        function readNavlog(event) {
+            var input = event.target;
+            if(input.value){
+                if(!input.value.toLowerCase().endsWith(".csv")){
+                    input.value = null;
+                    alert("Incorrect file type!");
+                }
+
+                download_file_name = input.value.split("\\")[2].split(".")[0]; //for if the file is modified and downloaded again
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var text = reader.result;
+                    
+                    //deleting present navlog
+                    reinit_0();
+                    
+                    var ct=0;
+                    var ax = text.split("\n"), axl = ax.length;
+                    try{
+                        for(var a=1; a<axl-2; a++){
+                            addLeg();
+                            var b = ax[a].split(",");
+                            legNames[ct].value = b[0].replaceAll("#", "\n");
+                            alts[ct].value = b[1];
+                            tass[ct].value = b[2];
+                            tracks[ct].value = b[3];
+                            winds[ct].value = b[4];
+                            headings[ct].value = b[5];
+                            ground_speeds[ct].value = b[6];
+                            distances[ct].value = b[7];
+                            fuel_reqs[ct].value = b[8];
+                            etes[ct].value = b[9];
+
+                            ct+=1;
+                        }
+
+                        document.getElementById('notes').value = ax[axl-1].replaceAll('?',',').replaceAll('#','\n');
+
+                    }catch(e){
+                        alert('Error! Corrupted navlog file!!!');
+                        reinit_0();
+                        addLeg();
+                    }
+                };
+                reader.readAsText(input.files[0]);
+            }
+
+            input.value = null;
+        }
+
+        function resetNavlog(){
+            for(var x=0; x<tass.length; x++){
+                alts[x].value = "";
+                tass[x].value = "";
+                winds[x].value = "";
+                headings[x].value = "";
+                ground_speeds[x].value = "";
+                fuel_reqs[x].value = "";
+                etes[x].value = "";
+            }
+        }
+
+        function reinit_0(){
+            //function re-initializes navlog WITHOUT ADDING EMPTY LEGS
+            //call addLeg() after calling reinit_0() if needed
+
+            document.getElementById('navlog-table').innerHTML = "<tbody>"
+                                            +"<tr class=\"hd_r\">"
+                                            +"<td rowspan=\"2\">From/<br/>To</td>"
+                                            +"<td>ALT</td>"
+                                            +"<td>TAS</td>"
+                                            +"<td rowspan=\"2\">TRK Mag</td>"
+                                            +"<td rowspan=\"2\">W/V Mag</td>"
+                                            +"<td rowspan=\"2\">HDG Mag</td>"
+                                            +"<td rowspan=\"2\">G.S.</td>"
+                                            +"<td rowspan=\"2\">Dist</td>"
+                                            +"<td>Fuel Req</td>"
+                                            +"<td rowspan=\"2\">ETE</td>"
+                                            +"<td rowspan=\"2\">ATA</td>"
+                                            +"</tr>"
+                                            +"<tr class=\"hd_r\">"
+                                            +"<td>Temp</td>"
+                                            +"<td>CAS</td>"
+                                            +"<td id=\"gph_td\"><input type=\"text\" size=\"3\" placeholder=\"GPH\" id=\"gph\"/></td>"
+                                            +"</tr>"
+                                            +"</tbody>"
+                                            +"<tr id=\"notes_row\">"
+                                            +"<td colspan=\"11\">"
+                                            +"<textarea id=\"notes\" placeholder=\"Notes...\" ></textarea>"
+                                            +"</td>"
+                                            +"</tr>";
+        }
+
+        function ins_sym(s){
+            if(activeAltField){
+                activeAltField.value = s;
+                activeAltField.focus();
+            }
+        }
+    </script>
+</html>
