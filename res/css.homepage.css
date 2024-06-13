@@ -41,7 +41,12 @@ div.link-banner-desc{
 }
 
 @media only screen and (max-width:700px){
+
+    div.link-banner-title{
+        font-size:600%;
+    }
+
     div.banner-button{
-        width:130px;
+        width:110px;
     }
 }
