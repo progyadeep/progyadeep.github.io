@@ -87,7 +87,7 @@
             var ql;
 
             function jsdo(/*event*/){
-                var reader = new FileReader();
+                /*var reader = new FileReader();
                 reader.onload = function(){
                     var text = reader.result;
                     
@@ -97,8 +97,17 @@
                     this_att = true;
                     showQ();
                 };
-                //reader.readAsText(event.target.files[0]);
-                reader.readAsText("/ham-basic-exam-prep/quiz/ham_qb_"+document.getElementsByTagName("select")[0].value+".txt");
+                reader.readAsText(event.target.files[0]);*/
+
+                fetch("/ham-basic-exam-prep/quiz/ham_qb_"+document.getElementsByTagName("select")[0].value+".txt")
+                .then( r => r.text() )
+                .then( function(text){
+                    qs = text.split("\n");
+                    ql = qs.length;
+
+                    this_att = true;
+                    showQ();
+                });
 
                 //----re-init global variables----
                 sc=0;
