@@ -99,7 +99,7 @@
                 };
                 reader.readAsText(event.target.files[0]);*/
 
-                fetch("/ham-basic-exam-prep/quiz/ham_qb_"+document.getElementsByTagName("select")[0].value+".txt")
+                fetch("ham_qb_"+document.getElementsByTagName("select")[0].value+".txt")
                 .then( r => r.text() )
                 .then( function(text){
                     qs = text.split("\n");
