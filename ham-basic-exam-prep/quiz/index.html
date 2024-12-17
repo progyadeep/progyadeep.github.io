@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <title>Ham Radio Basic QUIZ | FlyByProggy </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../../res/css.homepage.css"/>
+        <link rel="stylesheet" href="../../res/css.common.css"/>
+
+        <style>
+            button{
+                font-family:'Open Sans';
+            }
+
+            button.quiz-op{
+                cursor:pointer;
+                padding:5px 10px 5px 10px;
+                text-align:left;
+                border:0;
+                transition:0.2s;
+            }
+
+            button.quiz-op:hover{
+                background-color: #bcb;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="body-container">
+            <h1 id="site-title"><big>F L Y  &nbsp;&nbsp;B Y &nbsp;&nbsp;P R O G G Y</big>.mooo.com</small></h1>
+            <br/>
+
+            <h1>CANADIAN HAM RADIO BASIC EXAM PREP</h1>
+            <br/><br/>
+            <p>Select a questionn bank and click "Go!" to start the quiz. Selecting the right answer will award you 1 point and turn the option <strong>green</strong>. Selecting the wrong 
+            answer will turn the option <strong>red</strong> and you can keep clicking the other options until you find the right answer.</p>
+            
+            <p>To restart the quiz or start another bank, simply select the same or another bank from the dropdown and hit "Go!" again.</p>
+
+            <br/>
+            Select Question Bank: <select>
+                <option value="1">1 of 20</option>
+                <option value="2">2 of 20</option>
+                <option value="3">3 of 20</option>
+                <option value="4">4 of 20</option>
+                <option value="5">5 of 20</option>
+                <option value="6">6 of 20</option>
+                <option value="7">7 of 20</option>
+                <option value="8">8 of 20</option>
+                <option value="9">9 of 20</option>
+                <option value="10">10 of 20</option>
+                <option value="11">11 of 20</option>
+                <option value="12">12 of 20</option>
+                <option value="13">13 of 20</option>
+                <option value="14">14 of 20</option>
+                <option value="15">15 of 20</option>
+                <option value="16">16 of 20</option>
+                <option value="17">17 of 20</option>
+                <option value="18">18 of 20</option>
+                <option value="19">19 of 20</option>
+                <option value="20">20 of 20</option>
+                <option value="all"><ALL</option>
+            </select> <button onclick="javascript:jsdo()">Go!</button>
+            <!--input type="file" onchange="javascript:jsdo(event)"/-->
+    
+            <br/><br/>
+            <div id="cd">
+                <h4>Score: <span id="sc"></span></h4>
+                <br/><br/>
+                <div id="q"></div>
+                <br/><br/><br/><br/>
+                <button onclick="javascript:showQ()">Next</button>
+            </div>
+
+            <br/><br/>
+            <hr/>
+            <p id="footer"></p>
+            <br/><br/>
+        </div>
+
+        <script>
+            var sc = 0;
+            var att = 0;
+            var this_att = false;
+            var this_answer = "";
+            var q_div = document.getElementById('q');
+            var sc_sp = document.getElementById('sc');
+            var qs;
+            var ql;
+
+            function jsdo(/*event*/){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    var text = reader.result;
+                    
+                    qs = text.split("\n");
+                    ql = qs.length;
+
+                    this_att = true;
+                    showQ();
+                };
+                //reader.readAsText(event.target.files[0]);
+                reader.readAsText("ham_qb_"+document.getElementsByTagName("select")[0].value+".txt");
+
+                //----re-init global variables----
+                sc=0;
+                att=0;
+                this_att=false;
+                this_answer="";
+                qs=null;
+                ql=null;
+            }
+
+            function showQ(){
+                if(this_att){
+                    this_att = false;
+                    if(ql > 0){
+                        sc_sp.innerHTML = sc + "/" + att;
+                        var qn = Math.floor(Math.random() * ql);
+                        var qd = qs[qn].split(";");
+                        var qdt = qd[1] + "<br/>";
+                        this_answer = qd[2];
+                        var c = 3;
+                        while(c>=0){
+                            var ti = (Math.floor(Math.random() * c) + 2);
+                            qdt = qdt + "<br/><br/> <button class=\"quiz-op\" onclick=\"javascript:checkAns(this)\">" + qd[ti] + "</button>";
+                            qd.splice(ti, 1);
+                            c = c - 1;
+                        }
+                        q_div.innerHTML = qdt;
+
+                        qs.splice(qn,1);
+                        ql = ql-1;
+                    }
+                    else{
+                        q_div.innerHTML = "<h3>END OF QUIZ</h3>";
+                    }
+                }
+            }
+
+            function checkAns(obj){
+                if(!this_att)
+                    att++;
+
+                obj.style.backgroundColor = "green";
+                obj.style.color = "white";
+                if(obj.innerHTML != this_answer){
+                    obj.style.backgroundColor = "red";
+                }
+                else if(!this_att){
+                    sc = sc + 1;
+                }
+                sc_sp.innerHTML = sc + "/" + att;
+                this_att = true;
+            }
+        </script>
+
+        <script src="../../res/script.common.js"></script>
+    </body>
+</html>
