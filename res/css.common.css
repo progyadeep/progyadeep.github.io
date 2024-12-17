@@ -8,13 +8,22 @@
     src: url('OSP-DIN.ttf');
 }
 
+@font-face {
+    font-family: 'Times';
+    src: url('times.ttf');
+}
+
 html{
     font-family:'Open Sans';
 }
 
-h1,h2, h3{
+h1{
     font-family:'OSP';
 }
+
+/*h2, h3{
+    font-family:'Times';
+}*/
 
 div.body-container{
     width:800px;
