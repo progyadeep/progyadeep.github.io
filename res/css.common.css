@@ -17,13 +17,9 @@ html{
     font-family:'Open Sans';
 }
 
-h1{
+h1,h2,h3{
     font-family:'OSP';
 }
-
-/*h2, h3{
-    font-family:'Times';
-}*/
 
 div.body-container{
     width:800px;
