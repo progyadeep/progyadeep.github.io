@@ -7,8 +7,8 @@
         <meta name="description" content="Exam preparation package for the Canadian Amateur Radio Basic Exam"/>
         <meta name="keywords" content="amateur radio, ham radio, amateur radio canada, ham operators of canada, radio amateurs of canada, ISED Canada, radio, radio licence, ITU"/>
 
-        <link rel="stylesheet" href="../../res/css.homepage.css"/>
-        <link rel="stylesheet" href="../../res/css.common.css"/>
+        <link rel="stylesheet" href="../res/css.homepage.css"/>
+        <link rel="stylesheet" href="../res/css.common.css"/>
 
         <style>
             button{
@@ -30,7 +30,7 @@
     </head>
     <body>
         <div class="body-container">
-            <h1 align="center"><img src="../../res/flybyproggylogo3_5x2.svg" height="150px" width="265px"/></h1>
+            <h1 align="center"><img src="../res/flybyproggylogo3_5x2.svg" height="150px" width="265px"/></h1>
             <hr/>
             <br/>
 
@@ -104,7 +104,7 @@
                 };
                 reader.readAsText(event.target.files[0]);*/
 
-                fetch("ham_qb_"+document.getElementsByTagName("select")[0].value+".txt")
+                fetch("quiz_banks/ham_qb_"+document.getElementsByTagName("select")[0].value+".txt")
                 .then( r => r.text() )
                 .then( function(text){
                     qs = text.split("\n");
