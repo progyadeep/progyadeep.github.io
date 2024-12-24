@@ -132,8 +132,8 @@
                         var qd = qs[qn].split(";");
                         var qdt = qd[1] + "<br/>";
                         this_answer = qd[2];
-                        var c = 3;
-                        while(c>=0){
+                        var c = 4;
+                        while(c>0){
                             var ti = (Math.floor(Math.random() * c) + 2);
                             qdt = qdt + "<br/><br/> <button class=\"quiz-op\" onclick=\"javascript:checkAns(this)\">" + qd[ti] + "</button>";
                             qd.splice(ti, 1);
