@@ -3,7 +3,6 @@
 <head>
   <title>FlyByProggy &bull; Homepage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="res/css.homepage.css"/>
   <link rel="stylesheet" href="res/css.common.css"/>
 
   <script>
@@ -11,49 +10,53 @@
       window.location.href = u;
     }
   </script>
+
+  <style>
+    div.link-blob{
+      width:calc(100% - 30px);
+      background-color: #eaeaea;
+      cursor:pointer;
+      padding:1px 15px 1px 15px;
+      transition:0.2s;
+    }
+
+    div.link-blob:hover{
+      background-color:#cbcbcb;
+      transition:0.2s;
+    }
+  </style>
 </head>
 <body>
   <div class="body-container">
-    <h1 id="site-title"><big>F L Y  &nbsp;&nbsp;B Y &nbsp;&nbsp;P R O G G Y</big>.mooo.com</small></h1>
+    <h1 align="center"><img src="res/flybyproggylogo3_5x2.svg" height="150px" width="265px"/></h1>
+    <hr/>
     <br/>
 
-    <h3>W E L C O M E !</h3>
-    <p>This website is intended to be somewhat of a personal blog (and then some!) where I intend to write up interesting and informative articles on things I learn in my aviation journey. Below is a list 
-      of categories of content available on this website. I hope you enjoy it and find it valuable and feel free to share it with others if you do, as long as it's done in accordance with the 
-      terms under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY SA 4.0 <sup><small>↗</small></sup></a> license.</p>
+    <h1>Welcome / Bienvenue!</h1>
+
+    <p>This website is intended to be somewhat of a personal blog (and then some!) where I intend 
+    to write up interesting and informative articles on things I learn in my aviation journey, 
+    and some other stuff. Below is a list of categories of content available on this website. I 
+    hope you enjoy it and find it valuable and, if you do, feel free to share it with others.</p>
+
+    <p>Want to contribute to this website? Don't hesitate to contact me, I'd be happy to 
+      collaborate with you!</p>
     
-    <br/><br/>
+    <br/>
 
-    <div class="link-banner-container" style="background-image: url('res/home-cat-blog-banner.jpg')">
-      <div class="link-banner-title">BLOG</div>
-      <div class="banner-button" onclick="javascript:red('blog')">Explore &gt;&gt;</div>
-      <div class="link-banner-desc">A collection of write-ups about varied topics related to aviation resulting from reflecting on my experiences and my shower thoughts.</div>
+    <div class="link-blob" onclick="javascript:red('#')">
+      <h2>AVIATION BLOG</h2>
+    </div><br/>
+    <div class="link-blob" onclick="javascript:red('#')">
+      <h2>AVIATION QUIZ</h2>
+    </div><br/>
+    <div class="link-blob" onclick="javascript:red('#')">
+      <h2>AVIATION TOOLS</h2>
+    </div><br/>
+    <div class="link-blob" onclick="javascript:red('#')">
+      <h2>CANADIAN HAM RADIO EXAM PREP</h2>
     </div>
 
-    <br/><br/><br/>
-
-    <div class="link-banner-container" style="background-image: url('res/home-cat-articles-banner.jpg')">
-      <div class="link-banner-title">ARTICLES</div>
-      <div class="banner-button" onclick="javascript:red('articles')">Explore &gt;&gt;</div>
-      <div class="link-banner-desc">A collection of informative articles that can aid your academic as well as professional learning at any point in your aviation journey.</div>
-    </div>
-    
-    <br/><br/><br/>
-
-    <div class="link-banner-container" style="background-image: url('res/home-cat-util-banner.jpg')">
-      <div class="link-banner-title">UTILITIES</div>
-      <div class="banner-button" onclick="javascript:red('util')">Explore &gt;&gt;</div>
-      <div class="link-banner-desc">A set of digital tools that can be handy while learning, pre-flight preparation or in-flight.</div>
-    </div>
-
-    <h3>About me</h3>
-    <p>I'm Proggy, a multi-engine and group 1 instrument rated commercial pilot based in Canada. I'm currently trying to build hours and looking for low time pilot jobs and am open to meet up and 
-      network with all of you wonderful aviators out there! My aim is to gain as much varied experiences in aviation as I can. I am interested in becoming a mentor and instructor in the long run as I 
-      absolutely love sharing knowledge and experiences with others to help them grow and also grow with them.</p>
-
-    <p>I'm also a hobbyist musician playing keys, and a computer programmer.</p>
-
-    <p>Feel free to hit me up!</p>
 
     <br/><br/>
     <a title="Connect on LinkedIN" href="https://linkedin.com/in/progyadeep"><img src="res/linkedin.svg" height="30" width="30"/></a> &nbsp;
