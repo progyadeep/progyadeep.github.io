@@ -119,8 +119,6 @@
                     showQ();
                 };
                 reader.readAsText(event.target.files[0]);*/
-				alert("quiz_banks/"+qb.value.toString()+"_"+qs.value.toString()+".txt");
-				return;
                 fetch("quiz_banks/"+qb.value.toString()+"_"+qs.value.toString()+".txt")
                 .then( r => r.text() )
                 .then( function(text){
