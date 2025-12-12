@@ -41,29 +41,13 @@
             <p align="justify">To restart the quiz or start another bank, simply select the same or another bank from the dropdown and hit "Go!" again.</p>
 
             <br/>
-            Select Question Bank: <select>
-                <option value="1">1 of 20</option>
-                <option value="2">2 of 20</option>
-                <option value="3">3 of 20</option>
-                <option value="4">4 of 20</option>
-                <option value="5">5 of 20</option>
-                <option value="6">6 of 20</option>
-                <option value="7">7 of 20</option>
-                <option value="8">8 of 20</option>
-                <option value="9">9 of 20</option>
-                <option value="10">10 of 20</option>
-                <option value="11">11 of 20</option>
-                <option value="12">12 of 20</option>
-                <option value="13">13 of 20</option>
-                <option value="14">14 of 20</option>
-                <option value="15">15 of 20</option>
-                <option value="16">16 of 20</option>
-                <option value="17">17 of 20</option>
-                <option value="18">18 of 20</option>
-                <option value="19">19 of 20</option>
-                <option value="20">20 of 20</option>
-                <option value="all">ALL</option>
-            </select> <button onclick="javascript:jsdo()">Go!</button>
+            Select Question Bank: <select id="bank_sel" onchange="javascript:set_qb_subset()">
+            	<option></option>
+            	<option value="basic">Basic</option>
+            	<option value="adv">Advanced</option>
+            </select><br/><br/>
+            Select subset: <select id="qb_subset"></select> 
+            <button onclick="javascript:jsdo()">Go!</button>
             <!--input type="file" onchange="javascript:jsdo(event)"/-->
     
             <br/><br/>
@@ -90,6 +74,38 @@
             var sc_sp = document.getElementById('sc');
             var qs;
             var ql;
+            var qb = document.getElementById('bank_sel');
+            var qs = document.getElementById('qb_subset');
+            
+            function set_qb_subset(){
+            	var ch = qb.value;
+            	var qb_t = "<option value=\"1\">1</option>"
+                +"<option value=\"2\">2</option>"
+                +"<option value=\"3\">3</option>"
+                +"<option value=\"4\">4</option>"
+                +"<option value=\"5\">5</option>"
+                +"<option value=\"6\">6</option>"
+                +"<option value=\"7\">7</option>"
+                +"<option value=\"8\">8</option>"
+                +"<option value=\"9\">9 </option>"
+                +"<option value=\"10\">10</option>"
+                +"<option value=\"11\">11</option>";
+                
+                if(ch=='basic'){
+                	qb_t += "<option value=\"12\">12</option>"
+                	+"<option value=\"13\">13</option>"
+                	+"<option value=\"14\">14</option>"
+                	+"<option value=\"15\">15</option>"
+                	+"<option value=\"16\">16</option>"
+                	+"<option value=\"17\">17 </option>"
+                	+"<option value=\"18\">18</option>"
+                	+"<option value=\"19\">19</option>"
+                	+"<option value=\"20\">20</option>";
+                }
+                qb_t += "<option value=\"all\">ALL</option>";
+                
+                qs.innerHTML = qb_t;
+            }
 
             function jsdo(/*event*/){
                 /*var reader = new FileReader();
@@ -103,8 +119,9 @@
                     showQ();
                 };
                 reader.readAsText(event.target.files[0]);*/
-
-                fetch("quiz_banks/ham_qb_"+document.getElementsByTagName("select")[0].value+".txt")
+				alert("quiz_banks/"+qb.value.toString()+"_"+qs.value.toString()+".txt");
+				return;
+                fetch("quiz_banks/"+qb.value.toString()+"_"+qs.value.toString()+".txt")
                 .then( r => r.text() )
                 .then( function(text){
                     qs = text.split("\n");
